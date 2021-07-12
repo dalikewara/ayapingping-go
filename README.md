@@ -31,6 +31,8 @@ ayapingping-go
 then enter your project name & your go module path. After you confirm your inputs,
 the **ayapingping-go** generator will setup the project for you.
 
+![Alt Text](https://lh3.googleusercontent.com/pw/AM-JKLXHIY-P9tKx2cI0sgdLTxzvK5ErAwkToS-3to790cY4UDg2yullDtehGV2LEtYEDU-a1-xa9t_0vjTJJVri45aDNXN7BLxx-eAxOflZltzzrwF2bILJ9bHQWsCnXtCNDC8tMWZMk4tPtDP1iu9OYmD4=w600-h372-no)
+
 ### What's next?
 
 Just start working on your project, make changes. If you want to run the example app,
