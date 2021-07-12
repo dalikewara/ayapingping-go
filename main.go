@@ -14,9 +14,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
-	"strconv"
 	"strings"
-	"time"
 )
 
 type input struct {
@@ -26,7 +24,7 @@ type input struct {
 
 type option map[string]*input
 
-var version = "v1.0.0"
+var version = "v1.0.1"
 
 var baseProjectName = "ayapingping-go"
 
@@ -124,23 +122,6 @@ func writeFileInfoMatchFilename(info fs.FileInfo, filename, source, dest, replac
 	}
 }
 
-func writeFileCustomLicense(name, filename, source, dest, projectName string) {
-	if name == filename {
-		fData, err := os.ReadFile(source)
-		if err != nil {
-			panic(err)
-		}
-		fData = bytes.Replace(fData, []byte("2021"), []byte(strconv.Itoa(time.Now().Year())), -1)
-		fData = bytes.Replace(fData, []byte(" " + baseLicenseProjectUrl), []byte(""), -1)
-		fData = bytes.Replace(fData, []byte(baseLicenseProjectUrl), []byte(""), -1)
-		fData = bytes.Replace(fData, []byte(baseProjectName), []byte(projectName), -1)
-		if err = os.WriteFile(dest, fData, 0666); err != nil {
-			panic(err)
-		}
-		fmt.Println(fmt.Sprintf("Create %s... [ok]", dest))
-	}
-}
-
 func writeFileEnv(name, filename, source, dest string) {
 	if name == filename {
 		fData, err := os.ReadFile(source)
@@ -232,7 +213,7 @@ func generator(opt option) {
 		writeFileInfo(info, ".env.example", runtimePath, path, projectPath, goModulePath)
 		writeFileEnv(".env.example", runtimePath, path, projectPath)
 		writeFileInfo(info, ".gitignore", runtimePath, path, projectPath, goModulePath)
-		writeFileCustomLicense("LICENSE", runtimePath, path, projectPath, projectName)
+		writeFileInfo(info, "LICENSE", runtimePath, path, projectPath, goModulePath)
 		writeFileInfo(info, "Makefile", runtimePath, path, projectPath, goModulePath)
 		writeFileInfo(info, "README.md", runtimePath, path, projectPath, goModulePath)
 		return nil
