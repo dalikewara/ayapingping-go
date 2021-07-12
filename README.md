@@ -1,5 +1,12 @@
 # ayapingping-go
 
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dalikewara/ayapingping-go)](https://goreportcard.com/report/github.com/dalikewara/ayapingping-go)
+![GitHub license](https://img.shields.io/github/license/dalikewara/ayapingping-go)
+
+
 **ayapingping-go** generates standard project structure for building
 applications in Golang that follow Clean Architecture and Domain-Driven Design concept.
 
