@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// MySQL object.
 type MySQL struct {
 	db  *sql.DB
 }

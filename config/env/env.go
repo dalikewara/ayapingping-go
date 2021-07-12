@@ -5,6 +5,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
+// Config object.
 type Config struct {
 	Key string `envconfig:"KEY"`
 }

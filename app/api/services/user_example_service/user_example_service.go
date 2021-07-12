@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// Service object.
 type Service struct {
 	useCase user_example.UseCase
 }

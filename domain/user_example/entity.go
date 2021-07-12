@@ -1,5 +1,6 @@
 package user_example
 
+// Entity object.
 type Entity struct {
 	Id       int64  `json:"id" bson:"_id,omitempty"`
 	Username string `json:"username"`

@@ -5,6 +5,7 @@ import (
 	"github.com/dalikewara/ayapingping-go/domain/user_example/helpers/print_me"
 )
 
+// UseCase object.
 type UseCase struct {
 	repo user_example.Repository
 }
