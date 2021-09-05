@@ -12,7 +12,13 @@ applications in Golang that follow Clean Architecture and Domain-Driven Design c
 
 ### Installation
 
-You can use the `go get` method:
+You can use the `go install` method:
+
+```bash
+go install github.com/dalikewara/ayapingping-go@latest
+```
+
+or, you can also use the `go get` method (DEPRECATED since `go1.17`):
 
 ```bash
 go get github.com/dalikewara/ayapingping-go

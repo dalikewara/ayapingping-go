@@ -24,7 +24,7 @@ type input struct {
 
 type option map[string]*input
 
-var version = "v1.1.4"
+var version = "v1.1.6"
 
 var baseProjectName = "ayapingping-go"
 
