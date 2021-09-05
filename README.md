@@ -39,7 +39,7 @@ Just start working on your project, make changes. If you want to run the example
 you can use `go run` method:
 
 ```bash
-go run src/apps/api/api.go
+go run src/apps/api/main.go
 ```
 
 or you can use `make start` command:
