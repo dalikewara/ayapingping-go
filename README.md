@@ -39,7 +39,7 @@ Just start working on your project, make changes. If you want to run the example
 you can use `go run` method:
 
 ```bash
-go run app/api/main.go
+go run src/apps/api/api.go
 ```
 
 or you can use `make start` command:
@@ -54,27 +54,74 @@ make start
 To implement the concept of Clean Architecture and Domain-Driven Design, and to keep them understandable,
 we try to structure the project in such a way.
 
-### app
+### src
 
-Main applications of the project. Here you place executables of your application, what frameworks used, presenters,
-services, and anything between client and business domain. In this folder, you also make dependecy injection
-for business domain, like; initialize database connection for business repository, initialize repository for business use case, etc.
+Main source code of your project.
 
-### config
+### src/apps
 
-Main configurations of the project. Here you place functions to set up configurations or anything about configurations of
-your application.
+Application implementation of your project.
 
-### database
+- Here you place executable of your applications, what framework used, presenters,
+API services, or anything between client and business domain.
+  
+- In this folder, you also set up dependency injection
+for business domain. Example:
+    - Initialize configurations.
+    - Initialize database connections for business repositories.
+    - Initialize business repositories for business services.
+    - Initialize business services for business use cases.
+    - etc...
+    
+- Application implementation can be one of the following, or you can use all of them:
+    - REST API (`src/apps/api`).
+    - Cron (`src/apps/cron`).
+    - Web (`src/apps/web`).
+    - etc... (`src/apps/your-app`).
 
-Main databases adapter of the project. Here you place functions to connect to the database or anything about database connections
-of your application.
+### src/configs
 
-### domain
+Configuration setup used by your project.
 
-Main business domains of the project. Here you place main business models, business logics, business helpers, etc
-of your application. Business domain **should be isolated** from the outside world. Business domain **should knows nothing** about
-anything outside. Business domain **should not depend on** any frameworks.
+- Here you place functions to set up configurations or anything about configurations used by your project.
+  
+- You **SHOULD NOT** use any of the functions directly in the business domain.
+
+- You can initialize them in `src/apps` or `src/apps/your-app` as 
+a dependency injection.
+
+### src/databases
+
+Database adapters used by your project.
+
+- Here you place functions to connect to specified database or anything about database connections
+used by your project.
+
+- You **SHOULD NOT** use any of the functions directly in the business domain.
+
+- You can initialize them in `src/apps` or `src/apps/your-app` as
+  a dependency injection.
+
+### src/domains
+
+Main business domain of your project.
+
+- Here you place main business models or entities, business repositories,
+  business services, business use cases, or anything about business flow requirement.
+  
+- Try to keep business domain **ISOLATED FROM** anything outside `src/domains`.
+
+- Try to keep business domain **NOT DEPENDS** on any application frameworks.
+
+- Any changes outside `src/domains` **SHOULD NOT** affects existing business domain flow.
+
+### src/helpers
+
+Helpers to help you do some common tasks.
+
+- You **SHOULD NOT** use any of the functions directly in the business domain.
+
+- You can use them in any places except `src/domains`.
 
 ### Make your own
 

@@ -24,7 +24,7 @@ type input struct {
 
 type option map[string]*input
 
-var version = "v1.0.3"
+var version = "v1.1.0"
 
 var baseProjectName = "ayapingping-go"
 
@@ -107,7 +107,8 @@ func writeFileInfo(info fs.FileInfo, name, filename, source, dest, replaceModule
 
 func writeFileInfoMatchFilename(info fs.FileInfo, filename, source, dest, replaceModule string) {
 	matched, err := regexp.MatchString(filename, source)
-	if err != nil {
+	gitKeepMatched, err2 := regexp.MatchString(".gitkeep", source)
+	if err != nil || err2 != nil {
 		panic(err)
 	}
 	if matched {
@@ -115,7 +116,7 @@ func writeFileInfoMatchFilename(info fs.FileInfo, filename, source, dest, replac
 			if err = os.MkdirAll(dest, os.ModePerm); err != nil {
 				panic(err)
 			}
-		} else {
+		} else if !gitKeepMatched {
 			writeFile(source, dest, replaceModule)
 		}
 		fmt.Println(fmt.Sprintf("Create %s... [ok]", dest))
@@ -167,6 +168,17 @@ func execGoModTidy(projectName string) {
 	fmt.Println("Execute `go mod tidy`... [ok]")
 }
 
+func execGoModVendor(projectName string) {
+	fmt.Println("Executing `go mod vendor`. Please wait...")
+	cmd := exec.Command("go", "mod", "vendor")
+	cmd.Dir = projectName
+	if err := cmd.Run(); err != nil {
+		fmt.Println("Something went wrong when execute `go mod vendor`")
+		return
+	}
+	fmt.Println("Execute `go mod vendor`... [ok]")
+}
+
 func runInputFlow(r *bufio.Reader, opt option) option {
 	fmt.Println(opt["welcomeMessage"].text)
 	opt["projectName"].val = readStatementInput(r, opt["projectName"].text, false)
@@ -202,14 +214,8 @@ func generator(opt option) {
 		}
 		runtimePath := strings.TrimPrefix(strings.TrimPrefix(path, baseDir), string(os.PathSeparator))
 		projectPath := filepath.Join(projectName, runtimePath)
-		mkDirInfoFilename(info, "app", runtimePath, projectPath)
-		writeFileInfoMatchFilename(info, "app/api", path, projectPath, goModulePath)
-		mkDirInfoFilename(info, "domain", runtimePath, projectPath)
-		writeFileInfoMatchFilename(info, "domain/user_example", path, projectPath, goModulePath)
-		mkDirInfoFilename(info, "database", runtimePath, projectPath)
-		writeFileInfoMatchFilename(info, "database/mysql", path, projectPath, goModulePath)
-		mkDirInfoFilename(info, "config", runtimePath, projectPath)
-		writeFileInfoMatchFilename(info, "config/env", path, projectPath, goModulePath)
+		mkDirInfoFilename(info, "src", runtimePath, projectPath)
+		writeFileInfoMatchFilename(info, "src", path, projectPath, goModulePath)
 		writeFileInfo(info, ".env.example", runtimePath, path, projectPath, goModulePath)
 		writeFileEnv(".env.example", runtimePath, path, projectPath)
 		writeFileInfo(info, ".gitignore", runtimePath, path, projectPath, goModulePath)
@@ -222,5 +228,6 @@ func generator(opt option) {
 	}
 	execGoModInit(projectName, goModulePath)
 	execGoModTidy(projectName)
+	execGoModVendor(projectName)
 	fmt.Println("Done.")
 }
