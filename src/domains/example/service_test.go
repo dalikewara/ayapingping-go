@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-// TestNewService tests `example.NewService` method.
+// TestNewService tests NewService function.
 func TestNewService(t *testing.T) {
 	repo := &mocks.RepositoryInterface{}
 	srv := example.NewService(example.NewServiceParam{
@@ -16,7 +16,7 @@ func TestNewService(t *testing.T) {
 	assert.Implements(t, (*example.ServiceInterface)(nil), srv)
 }
 
-// TestService_Get tests `Service.Get` method.
+// TestService_Get tests Service.Get method.
 func TestService_Get(t *testing.T) {
 	param := example.ServiceGetParam{
 		Id: int64(1),
@@ -44,7 +44,7 @@ func TestService_Get(t *testing.T) {
 	assert.Equal(t, "John Doe", res.Example.Name)
 }
 
-// TestService_UpdateName tests `Service.UpdateName` method.
+// TestService_UpdateName tests Service.UpdateName method.
 func TestService_UpdateName(t *testing.T) {
 	param := example.ServiceUpdateNameParam{
 		Id: int64(1),

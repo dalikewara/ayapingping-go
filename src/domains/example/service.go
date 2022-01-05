@@ -1,6 +1,5 @@
 package example
 
-// Service struct.
 type Service struct {
 	repository RepositoryInterface
 }
@@ -12,21 +11,21 @@ func NewService(param NewServiceParam) ServiceInterface {
 	}
 }
 
-// Get gets `example` data.
+// Get gets example data.
 func (s *Service) Get(param ServiceGetParam) ServiceGetResult {
 	res := s.repository.FindById(RepositoryFindByIdParam{
 		Id: param.Id,
 	})
 	return ServiceGetResult{
 		Example: res.Example,
-		Error: nil,
+		Error:   nil,
 	}
 }
 
-// UpdateName updates `example` data.
+// UpdateName updates example name.
 func (s *Service) UpdateName(param ServiceUpdateNameParam) ServiceUpdateNameResult {
 	_ = s.repository.UpdateNameById(RepositoryUpdateNameByIdParam{
-		Id: param.Id,
+		Id:   param.Id,
 		Name: param.Name,
 	})
 	return ServiceUpdateNameResult{

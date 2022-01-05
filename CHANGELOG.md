@@ -2,13 +2,22 @@
 
 ### 2021
 
+- 1.2.0
+  - Updates project structure
+    - `HTTP/API/App/Route` handler now moved inside the domain directory
+    - `helpers` directory renamed to `libraries`
+    - Adds `infra` directory
+    - Removes all empty folders
+  - Updates `README.md`
+  - Updates & refactors some codes
+
 - 1.1.4 < 1.1.6
-  - Updated `go` version to `1.17`.
-  - Updated some scripts.
+  - Updates `go` version to `1.17`
+  - Updates some codes
 
 - 1.1.0 < 1.1.3
-  - Changed project structure.
-  - Updated some scripts.
+  - Changes project structure
+  - Updates some codes
 
 - 1.0.0 < 1.1.0
-  - Initial release.
+  - Initial release

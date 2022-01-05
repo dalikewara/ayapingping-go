@@ -1,34 +1,35 @@
 package example
 
 import (
+	"context"
 	"database/sql"
 )
 
-// NewMySQLRepositoryParam parameter.
+// NewMySQLRepositoryParam is the argument sets of the NewMySQLRepository function.
 type NewMySQLRepositoryParam struct {
 	Db *sql.DB
 }
 
-// RepositoryFindByIdParam parameter.
+// RepositoryFindByIdParam is the argument sets of the RepositoryInterface.FindById method.
 type RepositoryFindByIdParam struct {
-	Id int64
-	// Ctx context.Context  // If you want to use context.
+	Id  int64
+	Ctx *context.Context // If you want to use context.
 }
 
-// RepositoryFindByIdResult result.
+// RepositoryFindByIdResult is the response model of the RepositoryInterface.FindById method.
 type RepositoryFindByIdResult struct {
 	Example *Example
-	Error error
+	Error   error
 }
 
-// RepositoryUpdateNameByIdParam parameter.
+// RepositoryUpdateNameByIdParam is the argument sets of the RepositoryInterface.UpdateNameById method.
 type RepositoryUpdateNameByIdParam struct {
-	Id int64
+	Id   int64
 	Name string
-	// Ctx context.Context  // If you want to use context.
+	Ctx  *context.Context // If you want to use context.
 }
 
-// RepositoryUpdateNameByIdResult result.
+// RepositoryUpdateNameByIdResult is the response model of the RepositoryInterface.UpdateNameById method.
 type RepositoryUpdateNameByIdResult struct {
 	Error error
 }

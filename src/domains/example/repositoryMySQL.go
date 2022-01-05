@@ -4,7 +4,6 @@ import (
 	"database/sql"
 )
 
-// MySQLRepository struct.
 type MySQLRepository struct {
 	db *sql.DB
 }
@@ -16,23 +15,23 @@ func NewMySQLRepository(param NewMySQLRepositoryParam) RepositoryInterface {
 	}
 }
 
-// FindById finds `example` from database by id.
+// FindById finds example data from database by id.
 func (m *MySQLRepository) FindById(param RepositoryFindByIdParam) RepositoryFindByIdResult {
-	// Communicate to the real database. Example:
+	// Repository is a place where you communicate with the real database, example:
 	// ex := &Example{}
 	// err := m.db.QueryRow("SELECT id FROM examples").Scan(&ex.Id)
 	return RepositoryFindByIdResult{
 		Example: &Example{
-			Id: param.Id,
+			Id:   param.Id,
 			Name: "John Doe",
 		},
 		Error: nil,
 	}
 }
 
-// UpdateNameById updates `example` name to database by id.
+// UpdateNameById updates example name on database by id.
 func (m *MySQLRepository) UpdateNameById(param RepositoryUpdateNameByIdParam) RepositoryUpdateNameByIdResult {
-	// Communicate to the real database.
+	// Repository is a place where you communicate with the real database.
 	return RepositoryUpdateNameByIdResult{
 		Error: nil,
 	}

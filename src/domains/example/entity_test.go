@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// TestExample_ValidateName tests `Example.ValidateName` method.
+// TestExample_ValidateName tests Example.ValidateName method.
 func TestExample_ValidateName(t *testing.T) {
 	usr := example.Example{
 		Name: "John Doe",

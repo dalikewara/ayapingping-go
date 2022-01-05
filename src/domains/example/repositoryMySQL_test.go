@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-// TestNewMySQLRepository tests `example.NewMySQLRepository` method.
+// TestNewMySQLRepository tests NewMySQLRepository function.
 func TestNewMySQLRepository(t *testing.T) {
 	db, _, err := sqlmock.New()
 	assert.Nil(t, err)
@@ -17,7 +17,7 @@ func TestNewMySQLRepository(t *testing.T) {
 	assert.Implements(t, (*example.RepositoryInterface)(nil), repo)
 }
 
-// TestMySQLRepository_FindById tests `MySQLRepository.FindById` method.
+// TestMySQLRepository_FindById tests MySQLRepository.FindById method.
 func TestMySQLRepository_FindById(t *testing.T) {
 	db, _, err := sqlmock.New()
 	assert.Nil(t, err)
@@ -31,7 +31,7 @@ func TestMySQLRepository_FindById(t *testing.T) {
 	assert.Equal(t, int64(1), res.Example.Id)
 }
 
-// TestMySQLRepository_UpdateNameById tests `MySQLRepository.UpdateNameById` method.
+// TestMySQLRepository_UpdateNameById tests MySQLRepository.UpdateNameById method.
 func TestMySQLRepository_UpdateNameById(t *testing.T) {
 	db, _, err := sqlmock.New()
 	assert.Nil(t, err)
@@ -39,7 +39,7 @@ func TestMySQLRepository_UpdateNameById(t *testing.T) {
 		Db: db,
 	})
 	res := repo.UpdateNameById(example.RepositoryUpdateNameByIdParam{
-		Id: 1,
+		Id:   1,
 		Name: "Smith",
 	})
 	assert.Nil(t, res.Error)
