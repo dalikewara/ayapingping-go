@@ -10,6 +10,6 @@ WORKDIR /my-ayapingping-go-app
 
 COPY . .
 
-RUN go build -o api src/apps/api/main.go
+RUN go build -o apiGinGonic src/apps/api/ginGonic/ginGonic.go
 
-ENTRYPOINT ["/my-ayapingping-go-app/api"]
+ENTRYPOINT ["/my-ayapingping-go-app/apiGinGonic"]

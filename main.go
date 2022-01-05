@@ -124,6 +124,8 @@ func generator(option *option) {
 		}
 		runtimePath := strings.TrimPrefix(strings.TrimPrefix(path, baseDir), string(os.PathSeparator))
 		projectPath := filepath.Join(projectName, runtimePath)
+		walkCreateDir(info, "infra", runtimePath, projectPath)
+		walkCreateFileAndReplaceModule(info, "infra", path, projectPath, "")
 		walkCreateDir(info, "src", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "src", path, projectPath, goModulePath)
 		walkWriteFile(info, ".env.example", runtimePath, path, projectPath, goModulePath)
