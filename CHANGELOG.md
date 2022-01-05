@@ -1,6 +1,6 @@
 # Changelogs
 
-### 2021
+### 2022
 
 - 1.2.0
   - Updates project structure
@@ -10,6 +10,8 @@
     - Removes all empty folders
   - Updates `README.md`
   - Updates & refactors some codes
+
+### 2021
 
 - 1.1.4 < 1.1.6
   - Updates `go` version to `1.17`

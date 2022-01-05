@@ -1,7 +1,7 @@
 package printme_test
 
 import (
-	"github.com/dalikewara/ayapingping-go/src/library/printme"
+	"github.com/dalikewara/ayapingping-go/src/libraries/printme"
 	"testing"
 )
 

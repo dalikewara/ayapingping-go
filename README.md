@@ -120,7 +120,7 @@ Delivery handlers used by your applications.
     - `src/domains/{my-domain}/delivery/grpc`, to handle gRPC request from client.
     - etc...
 
-### src/library
+### src/libraries
 
 Helpers (custom functions) to help you do some common tasks.
 
