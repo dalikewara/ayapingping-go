@@ -1,0 +1,1 @@
+This is an example business domain package.

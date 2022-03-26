@@ -1,5 +1,4 @@
-# Your dev dockerfile here...
-# Example:
+# Example dockerfile for dev environment.
 FROM golang:alpine
 
 RUN apk add --no-cache tzdata
