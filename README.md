@@ -87,7 +87,7 @@ Configuration setup used by your project.
 - Here you place functions to set up configurations or anything about configurations used by your project.
 
 - You may use any of the functions directly in the business domain, but it always **BETTER TO NOT** use it directly in
-  there.
+  there. You can pass the configs as a dependency injection for your business domains.
 
 - You can initialize them in `src/apps` or `src/apps/your-app` as a dependency injection.
 
@@ -108,23 +108,26 @@ Main business domain of your project.
 - Here you place main business models or entities, business repositories, business services, business use cases, or
   anything about business flow requirement.
 
-- Any changes outside `src/domains` **SHOULD NOT** affects existing business domain flow.
+- Any changes outside `src/domains` **SHOULD NOT** affect existing business domain flow.
 
 ### src/domains/{my-domain}/delivery
 
-Delivery handlers used by your applications.
+Delivery handlers used by your specified business domains.
 
-- Here you place handlers for your applications, presenters or anything between client and your business domain.
+- Here you place handlers for your specified business domains, to handle presenters or anything to be done between client and the business domains.
   Example:
-    - `src/domains/{my-domain}/delivery/http`, to handle http request from client.
-    - `src/domains/{my-domain}/delivery/grpc`, to handle gRPC request from client.
+    - `src/domains/{my-domain}/delivery/http`, to handle http requests from client.
+    - `src/domains/{my-domain}/delivery/grpc`, to handle gRPC requests from client.
     - etc...
 
 ### src/libraries
 
 Helpers (custom functions) to help you do some common tasks.
 
-- You may use any of the functions directly in the business domain.
+- Here you place custom functions to help you do some common tasks for your applications.
+
+- You may use any of the functions directly in the business domain. But, **BE CAREFUL**, any changes
+  in this folder **SHOULD NOT** affect existing business domain flow.
 
 - You may use them in any place.
 

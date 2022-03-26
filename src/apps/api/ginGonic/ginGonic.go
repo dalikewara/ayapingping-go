@@ -1,46 +1,55 @@
+// user API application executable using gin-gonic.
+
 package main
 
 import (
-	"github.com/DATA-DOG/go-sqlmock"
+	"fmt"
 	"github.com/dalikewara/ayapingping-go/src/configs/env"
-	"github.com/dalikewara/ayapingping-go/src/domains/example"
-	exampleHttpHandler "github.com/dalikewara/ayapingping-go/src/domains/example/delivery/http/ginGonic"
+	"github.com/dalikewara/ayapingping-go/src/databases/mysql"
+	"github.com/dalikewara/ayapingping-go/src/domains/user"
+	userHttpHandler "github.com/dalikewara/ayapingping-go/src/domains/user/delivery/http/ginGonic"
 	"github.com/gin-gonic/gin"
 	"log"
 )
 
 func main() {
+	appPort := env.AppPort
+	appEnv := env.AppEnv
 	router := gin.Default()
 
-	// For testing purpose, we mock the database.
-	db, _, err := sqlmock.New()
+	// We mock the database for this case.
+	db, _, err := mysql.ConnectMock()
 	if err != nil {
 		panic(err)
 	}
 
-	// Repositories.
-	exampleRepository := example.NewMySQLRepository(example.NewMySQLRepositoryParam{
+	// Business repositories.
+	userRepository := user.NewMySQLRepository(user.NewMySQLRepositoryParam{
 		Db: db,
 	})
 
-	// Services.
-	exampleService := example.NewService(example.NewServiceParam{
-		Repository: exampleRepository,
+	// Business services.
+	userService := user.NewService(user.NewServiceParam{
+		Repository: userRepository,
 	})
 
-	// Use cases.
-	exampleUseCase := example.NewUseCase(example.NewUseCaseParam{
-		ExampleService: exampleService,
+	// Business use cases.
+	userUseCase := user.NewUseCase(user.NewUseCaseParam{
+		Service: userService,
 	})
 
-	// Delivery API.
-	exampleHttpHandler.NewHandler(exampleHttpHandler.NewHandlerParam{
+	// API delivery handler.
+	userHttpHandler.NewHandler(userHttpHandler.NewHandlerParam{
 		Router:  router,
-		UseCase: exampleUseCase,
+		UseCase: userUseCase,
 	})
 
-	log.Println("App start on env " + env.AppEnv)
-	if err = router.Run(); err != nil {
+	// Run the server.
+	log.Println(fmt.Sprintf("APP start on: env=%s, port=%s", appEnv, appPort))
+	if appEnv == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+	if err = router.Run(fmt.Sprintf(":%v", appPort)); err != nil {
 		panic(err)
 	}
 }
