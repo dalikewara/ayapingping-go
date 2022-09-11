@@ -1,6 +1,6 @@
 # ayapingping-go
 
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v2)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go)
 ![GitHub license](https://img.shields.io/github/license/dalikewara/ayapingping-go)
@@ -15,13 +15,13 @@ Architecture and Domain-Driven Design concept.
 You can use the `go install` method:
 
 ```bash
-go install github.com/dalikewara/ayapingping-go@latest
+go install github.com/dalikewara/ayapingping-go/v2@latest
 ```
 
 or, you can also use the `go get` method (DEPRECATED since `go1.17`):
 
 ```bash
-go get github.com/dalikewara/ayapingping-go
+go get github.com/dalikewara/ayapingping-go/v2
 ```
 
 ### Usage

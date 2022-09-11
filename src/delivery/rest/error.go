@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"github.com/dalikewara/ayapingping-go/src/library/errs"
+	"github.com/dalikewara/ayapingping-go/v2/src/library/errs"
 	"net/http"
 )
 

@@ -4,11 +4,11 @@ package main
 
 import (
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/dalikewara/ayapingping-go/src/config/constant"
-	"github.com/dalikewara/ayapingping-go/src/config/env"
-	"github.com/dalikewara/ayapingping-go/src/delivery/rest"
-	"github.com/dalikewara/ayapingping-go/src/repository"
-	"github.com/dalikewara/ayapingping-go/src/service"
+	"github.com/dalikewara/ayapingping-go/v2/src/config/constant"
+	"github.com/dalikewara/ayapingping-go/v2/src/config/env"
+	"github.com/dalikewara/ayapingping-go/v2/src/delivery/rest"
+	"github.com/dalikewara/ayapingping-go/v2/src/repository"
+	"github.com/dalikewara/ayapingping-go/v2/src/service"
 	"github.com/gin-gonic/gin"
 )
 

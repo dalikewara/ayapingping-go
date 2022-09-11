@@ -2,7 +2,7 @@ package mysql_test
 
 import (
 	"database/sql"
-	"github.com/dalikewara/ayapingping-go/src/database/mysql"
+	"github.com/dalikewara/ayapingping-go/v2/src/database/mysql"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

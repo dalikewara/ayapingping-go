@@ -2,15 +2,15 @@
 
 ### 2022
 
-- 2.0.0 (2022-09-11)
+- v2.0.0 - v2.0.1 (2022-09-11)
   - major changes to the project structure
 
-- 1.3.0 - 1.3.1
+- v1.3.0 - v1.3.1
   - Updates some scripts
   - Changes `domain/example` to `domain/user`
   - Changes `infra/dev` to `infra/local`
 
-- 1.2.0 - 1.2.2
+- v1.2.0 - v1.2.2
   - Updates project structure
     - `HTTP/API/App/Route` handler now moved inside the domain directory
     - `helpers` directory renamed to `libraries`
@@ -21,13 +21,13 @@
 
 ### 2021
 
-- 1.1.4 - 1.1.6
+- v1.1.4 - v1.1.6
   - Updates `go` version to `1.17`
   - Updates some codes
 
-- 1.1.0 - 1.1.3
+- v1.1.0 - v1.1.3
   - Changes project structure
   - Updates some codes
 
-- 1.0.0 - 1.1.0
+- v1.0.0 - v1.1.0
   - Initial release

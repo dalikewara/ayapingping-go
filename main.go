@@ -30,8 +30,8 @@ type option struct {
 	confirmation   *input
 }
 
-var version = "v2.0.0"
-var baseModulePath = "github.com/dalikewara/ayapingping-go"
+var version = "v2.0.1"
+var baseModulePath = "github.com/dalikewara/ayapingping-go/v2"
 var opt = &option{
 	welcomeMessage: &input{
 		text: fmt.Sprintf("Welcome to AyaPingPing (Go) %s. Let's create a new project!", version),

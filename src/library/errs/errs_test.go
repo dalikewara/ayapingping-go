@@ -1,7 +1,7 @@
 package errs_test
 
 import (
-	"github.com/dalikewara/ayapingping-go/src/library/errs"
+	"github.com/dalikewara/ayapingping-go/v2/src/library/errs"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

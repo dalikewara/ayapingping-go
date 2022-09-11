@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/dalikewara/ayapingping-go/src/repository"
+	"github.com/dalikewara/ayapingping-go/v2/src/repository"
 )
 
 type userV1 struct {

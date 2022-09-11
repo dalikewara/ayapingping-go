@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"github.com/dalikewara/ayapingping-go/src/service"
+	"github.com/dalikewara/ayapingping-go/v2/src/service"
 	"github.com/gin-gonic/gin"
 )
 

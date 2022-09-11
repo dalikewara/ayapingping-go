@@ -2,7 +2,7 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/dalikewara/ayapingping-go/src/entity"
+	"github.com/dalikewara/ayapingping-go/v2/src/entity"
 	"time"
 )
 

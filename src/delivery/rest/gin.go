@@ -2,7 +2,7 @@ package rest
 
 import (
 	"fmt"
-	"github.com/dalikewara/ayapingping-go/src/service"
+	"github.com/dalikewara/ayapingping-go/v2/src/service"
 	"github.com/dalikewara/rflgo"
 	"github.com/gin-gonic/gin"
 	"log"

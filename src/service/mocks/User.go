@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	service "github.com/dalikewara/ayapingping-go/src/service"
+	service "github.com/dalikewara/ayapingping-go/v2/src/service"
 	mock "github.com/stretchr/testify/mock"
 )
 

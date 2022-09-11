@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	repository "github.com/dalikewara/ayapingping-go/src/repository"
+	repository "github.com/dalikewara/ayapingping-go/v2/src/repository"
 	mock "github.com/stretchr/testify/mock"
 )
 

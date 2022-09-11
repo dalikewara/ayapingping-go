@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/dalikewara/ayapingping-go/src/entity"
-	"github.com/dalikewara/ayapingping-go/src/library/errs"
-	"github.com/dalikewara/ayapingping-go/src/repository"
+	"github.com/dalikewara/ayapingping-go/v2/src/entity"
+	"github.com/dalikewara/ayapingping-go/v2/src/library/errs"
+	"github.com/dalikewara/ayapingping-go/v2/src/repository"
 )
 
 type Config struct {

@@ -2,7 +2,7 @@ package repository_test
 
 import (
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/dalikewara/ayapingping-go/src/repository"
+	"github.com/dalikewara/ayapingping-go/v2/src/repository"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
