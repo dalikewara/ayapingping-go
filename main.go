@@ -30,7 +30,7 @@ type option struct {
 	confirmation   *input
 }
 
-var version = "v1.2.2"
+var version = "v2.0.0"
 var baseModulePath = "github.com/dalikewara/ayapingping-go"
 var opt = &option{
 	welcomeMessage: &input{

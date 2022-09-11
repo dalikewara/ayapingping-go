@@ -42,7 +42,7 @@ setup the project for you.
 Just start working on your project, make changes. If you want to run the example app, you can use `go run` method:
 
 ```bash
-go run src/apps/api/ginGonic/ginGonic.go
+go run src/app/api/gingonic/gingonic.go
 ```
 
 or you can use `make start` command:
@@ -64,83 +64,93 @@ Main source code of your project.
 
 Application implementation of your project.
 
-- Here you place executable of your applications, define what framework used, and initialize application handlers from
-  domains.
-
-- In this folder, you also set up dependency injection for business domain. Example:
-    - Initialize configurations.
-    - Initialize database connections for business repositories.
-    - Initialize business repositories for business services.
-    - Initialize business services for business use cases.
-    - etc...
-
+- Here you place executable of your applications, define what framework used, and initialize application handlers from `src/delivery`
+- In this package, you also set up dependency injection for your business requirements. Example:
+  - Initialize configurations
+  - Initialize database connections for repositories
+  - Initialize repositories for services
+  - Initialize services for application handlers
+  - etc.
 - Application implementation can be one of the following, or you can use all of them:
-    - REST API (`src/apps/api`).
-    - Cron (`src/apps/cron`).
-    - Web (`src/apps/web`).
-    - etc... (`src/apps/your-app`).
+  - REST API (`src/apps/rest`)
+  - gRPC API (`src/apps/grpc`)
+  - Cron (`src/apps/cron`)
+  - Web (`src/apps/web`)
+  - etc. (`src/apps/your-app`)
 
 ### src/configs
 
 Configuration setup used by your project.
 
-- Here you place functions to set up configurations or anything about configurations used by your project.
-
-- You may use any of the functions directly in the business domain, but it always **BETTER TO NOT** use it directly in
-  there. You can pass the configs as a dependency injection for your business domains.
-
-- You can initialize them in `src/apps` or `src/apps/your-app` as a dependency injection.
+- Here you place functions to set up configurations, constants, or env variables
+- You should always use any codes in this package in `src/app`
 
 ### src/databases
 
 Database adapters used by your project.
 
-- Here you place functions to connect to specified database or anything about database connections used by your project.
+- Here you place packages to connect to specified database or anything about database connections
+- You should always use any codes in this package in `src/app`
 
-- You **SHOULD NOT** use any of the functions directly in the business domain.
+### src/delivery
 
-- You can initialize them in `src/apps` or `src/apps/your-app` as a dependency injection.
+Delivery handlers used by your application.
 
-### src/domains
+- Here you place your application handlers
+- Here you handle presenters or anything to be done between client and your application. Example:
+  - `src/delivery/rest/`, to handle REST requests from client
+  - `src/delivery/grpc/`, to handle gRPC requests from client
+  - etc...
 
-Main business domain of your project.
+### src/entity
 
-- Here you place main business models or entities, business repositories, business services, business use cases, or
-  anything about business flow requirement.
+Main business model of your project.
 
-- Any changes outside `src/domains` **SHOULD NOT** affect existing business domain flow.
+- Entity is your main business model
+- Here you define your main object models or properties for your business
+- Keep this package simple, don't code anything that is not related to the model itself
 
-### src/domains/{my-domain}/delivery
-
-Delivery handlers used by your specified business domains.
-
-- Here you place handlers for your specified business domains, to handle presenters or anything to be done between client and the business domains.
-  Example:
-    - `src/domains/{my-domain}/delivery/http`, to handle http requests from client.
-    - `src/domains/{my-domain}/delivery/grpc`, to handle gRPC requests from client.
-    - etc...
-
-### src/libraries
+### src/library
 
 Helpers (custom functions) to help you do some common tasks.
 
-- Here you place custom functions to help you do some common tasks for your applications.
+- Library is a place where you create packages to help you do some common tasks
+- Provide reusable packages for your application
 
-- You may use any of the functions directly in the business domain. But, **BE CAREFUL**, any changes
-  in this folder **SHOULD NOT** affect existing business domain flow.
+### src/repository
 
-- You may use them in any place.
+Main business repository of your project.
+
+- Repository is a place where you communicate with the real external data source, like database, cloud service, external service, etc.
+- You should keep your repository as simple as possible, don't add too much logic here
+- If you have to, you can separate the operations into smaller methods, then do the flow in the service package
+- You should always call your repository methods inside the service package
+- You may use your `src/library` functions directly in this package
+- Any changes outside this package should not affect your repositories (except changes for business entity)
+- If you need config variables, database frameworks, or external clients, pass/inject them as dependency
+- You can use your own style as long as it doesn't break the main idea
+
+### src/service
+
+Main business logic of your project.
+
+- Service is your main business logic
+- You should always call your repository methods in this package
+- You may use your `src/library` functions directly in this package
+- Any changes outside this package should not affect your services (except changes for business entity or repository)
+- If you need config variables, external clients, or repositories, pass/inject them as dependency
+- You can use your own style as long as it doesn't break the main idea
 
 ### infra
 
 Infrastructure configuration of your projects.
 
-- Here you place any infrastructure configurations or scripts to help you deploy your project in a server or vm.
+- Here you place any infrastructure configurations or scripts to help you deploy your project in a server or vm
 - It is always **BETTER TO** create folders based on what environment used, example:
-    - `infra/dev`, for development
-    - `infra/rc`, for release candidate
-    - `infra/prod`, for production
-    - etc...
+  - `infra/dev`, for development
+  - `infra/rc`, for release candidate
+  - `infra/prod`, for production
+  - etc...
 
 ### Make your own
 

@@ -1,0 +1,5 @@
+- Here you place your application handlers
+- Here you handle presenters or anything to be done between client and your application. Example:
+    - `src/delivery/rest/`, to handle REST requests from client
+    - `src/delivery/grpc/`, to handle gRPC requests from client
+    - etc...

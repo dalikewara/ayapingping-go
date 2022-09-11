@@ -1,0 +1,46 @@
+# .env
+.env*
+*.env
+!.env.example
+vendor
+
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Others
+bin
+.idea
+.vscode
+.cache
+build
+*.egg-info
+.temp
+temp
+.tmp
+tmp
+scripts

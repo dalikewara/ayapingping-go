@@ -1,0 +1,13 @@
+- Here you place executable of your applications, define what framework used, and initialize application handlers from `src/delivery`
+- In this package, you also set up dependency injection for your business requirements. Example:
+    - Initialize configurations
+    - Initialize database connections for repositories
+    - Initialize repositories for services
+    - Initialize services for application handlers
+    - etc.
+- Application implementation can be one of the following, or you can use all of them:
+    - REST API (`src/apps/rest`)
+    - gRPC API (`src/apps/grpc`)
+    - Cron (`src/apps/cron`)
+    - Web (`src/apps/web`)
+    - etc. (`src/apps/your-app`)

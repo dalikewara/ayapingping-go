@@ -1,0 +1,8 @@
+- Repository is a place where you communicate with the real external data source, like database, cloud service, external service, etc.
+- You should keep your repository as simple as possible, don't add too much logic here
+- If you have to, you can separate the operations into smaller methods, then do the flow in the service package
+- You should always call your repository methods inside the service package
+- You may use your `src/library` functions directly in this package
+- Any changes outside this package should not affect your repositories (except changes for business entity)
+- If you need config variables, database frameworks, or external clients, pass/inject them as dependency
+- You can use your own style as long as it doesn't break the main idea

@@ -1,0 +1,2 @@
+- Library is a place where you create packages to help you do some common tasks
+- Provide reusable packages for your application

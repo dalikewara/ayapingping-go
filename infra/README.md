@@ -1,0 +1,6 @@
+- Here you place any infrastructure configurations or scripts to help you deploy your project in a server or vm
+- It is always **BETTER TO** create folders based on what environment used, example:
+    - `infra/dev`, for development
+    - `infra/rc`, for release candidate
+    - `infra/prod`, for production
+    - etc...

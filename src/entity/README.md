@@ -1,0 +1,3 @@
+- Entity is your main business model
+- Here you define your main object models or properties for your business
+- Keep this package simple, don't code anything that is not related to the model itself
