@@ -2,8 +2,11 @@
 
 ### 2022
 
+- v2.0.2 (2022-09-12)
+  - Change license to MIT License 
+
 - v2.0.0 - v2.0.1 (2022-09-11)
-  - major changes to the project structure
+  - Major changes to the project structure
 
 - v1.3.0 - v1.3.1
   - Updates some scripts
