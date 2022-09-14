@@ -4,30 +4,16 @@ import (
 	"github.com/dalikewara/ayapingping-go/v2/src/repository"
 )
 
-type userV1 struct {
-	userRepo repository.User
+type example struct {
+	exampleRepo repository.Example
 }
 
-// NewUserV1 generates new userV1 that implements User.
-func NewUserV1(param NewUserV1Param) User {
-	return &userV1{
-		userRepo: param.UserRepo,
-	}
+// NewExample generates new example that implements Example.
+func NewExample(param NewExampleParam) Example {
+	panic("implement me")
 }
 
-// GetAll gets all user data.
-func (s *userV1) GetAll(param UserGetAllParam) UserGetAllResult {
-	var result UserGetAllResult
-
-	users := s.userRepo.FindAll(repository.UserFindAllParam{
-		Ctx: param.Ctx,
-	})
-	if users.Error != nil {
-		result.Error = users.Error
-		return result
-	}
-
-	result.Users = users.Users
-
-	return result
+// GetAll gets all example data.
+func (s *example) GetAll(param ExampleGetAllParam) ExampleGetAllResult {
+	panic("implement me")
 }

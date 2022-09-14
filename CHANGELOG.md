@@ -2,6 +2,9 @@
 
 ### 2022
 
+- v2.1.0 (2022-09-14)
+  - Change code implementations to `panic("implement me")` for simplicity
+
 - v2.0.2 (2022-09-12)
   - Change license to MIT License 
 

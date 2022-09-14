@@ -39,17 +39,7 @@ setup the project for you.
 
 ### What's next?
 
-Just start working on your project, make changes. If you want to run the example app, you can use `go run` method:
-
-```bash
-go run src/app/api/gingonic/gingonic.go
-```
-
-or you can use `make start` command:
-
-```bash
-make start
-```
+Just start working on your project, make changes.
 
 ## Project structure
 
