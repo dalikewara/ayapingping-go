@@ -4,7 +4,7 @@
 
 - v3.0.0 (2023-09-17)
   - Major changes to the project structure
-  - Change some roles to simplify possible implementations
+  - Change some rules to simplify possible implementations
 
 ### 2022
 
