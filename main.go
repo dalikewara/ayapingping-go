@@ -30,8 +30,8 @@ type option struct {
 	confirmation   *input
 }
 
-var version = "v2.1.0"
-var baseModulePath = "github.com/dalikewara/ayapingping-go/v2"
+var version = "v3.0.0"
+var baseModulePath = "github.com/dalikewara/ayapingping-go/v3"
 var opt = &option{
 	welcomeMessage: &input{
 		text: fmt.Sprintf("Welcome to AyaPingPing (Go) %s. Let's create a new project!", version),
@@ -124,15 +124,20 @@ func generator(option *option) {
 		}
 		runtimePath := strings.TrimPrefix(strings.TrimPrefix(path, baseDir), string(os.PathSeparator))
 		projectPath := filepath.Join(projectName, runtimePath)
+		projectPath = strings.ReplaceAll(projectPath, "/structure", "")
 		walkCreateDir(info, "infra", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "infra", path, projectPath, "")
 		walkCreateDir(info, "src", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "src", path, projectPath, goModulePath)
-		walkWriteFile(info, ".env.example", runtimePath, path, projectPath, goModulePath)
-		walkWriteEnvFromExample(".env.example", runtimePath, path, projectPath)
+		walkWriteFile(info, "structure/.dockerignore", runtimePath, path, projectPath, goModulePath)
+		walkWriteFile(info, "structure/docker-compose.yml", runtimePath, path, projectPath, goModulePath)
+		walkWriteFile(info, "structure/Dockerfile", runtimePath, path, projectPath, goModulePath)
+		walkWriteFile(info, "structure/Makefile", runtimePath, path, projectPath, goModulePath)
+		walkWriteFile(info, "structure/main.go", runtimePath, path, projectPath, goModulePath)
+		walkWriteFile(info, "structure/.env.example", runtimePath, path, projectPath, goModulePath)
+		walkWriteEnvFromExample("structure/.env.example", runtimePath, path, projectPath)
 		walkWriteFile(info, ".gitignore", runtimePath, path, projectPath, goModulePath)
 		walkWriteFile(info, "LICENSE", runtimePath, path, projectPath, goModulePath)
-		walkWriteFile(info, "Makefile", runtimePath, path, projectPath, goModulePath)
 		walkWriteFile(info, "README.md", runtimePath, path, projectPath, goModulePath)
 		return nil
 	}); err != nil {
@@ -148,7 +153,7 @@ func execGoModInit(projectName, goModulePath string) {
 	cmd := exec.Command("go", "mod", "init", goModulePath)
 	cmd.Dir = projectName
 	if err := cmd.Run(); err != nil {
-		fmt.Println("Something went wrong when executing `go mod init`")
+		fmt.Println("Something went wrong when executing `go mod init`: ", err.Error())
 		return
 	}
 	fmt.Println("Execute `go mod init`... [ok]")
@@ -159,7 +164,7 @@ func execGoModTidy(projectName string) {
 	cmd := exec.Command("go", "mod", "tidy")
 	cmd.Dir = projectName
 	if err := cmd.Run(); err != nil {
-		fmt.Println("Something went wrong when executing `go mod tidy`")
+		fmt.Println("Something went wrong when executing `go mod tidy`: ", err.Error())
 		return
 	}
 	fmt.Println("Execute `go mod tidy`... [ok]")
@@ -170,7 +175,7 @@ func execGoModVendor(projectName string) {
 	cmd := exec.Command("go", "mod", "vendor")
 	cmd.Dir = projectName
 	if err := cmd.Run(); err != nil {
-		fmt.Println("Something went wrong when executing `go mod vendor`")
+		fmt.Println("Something went wrong when executing `go mod vendor`: ", err.Error())
 		return
 	}
 	fmt.Println("Execute `go mod vendor`... [ok]")

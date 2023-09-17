@@ -1,2 +1,0 @@
-- Here you place packages to connect to specified database or anything about database connections
-- You should always use any codes in this package in `src/app`

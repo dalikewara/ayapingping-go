@@ -1,5 +1,11 @@
 # Changelogs
 
+### 2023
+
+- v3.0.0 (2023-09-17)
+  - Major changes to the project structure
+  - Change some roles to simplify possible implementations
+
 ### 2022
 
 - v2.1.0 (2022-09-14)

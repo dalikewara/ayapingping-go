@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  ayapingping-go:
+    image: ayapingping-go
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+    restart: always

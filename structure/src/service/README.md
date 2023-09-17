@@ -1,0 +1,5 @@
+- In this package, you put your application handlers, servers or clients. Example:
+  - `src/service/rest/`, to handle REST requests from client
+  - `src/service/grpc/`, to handle gRPC requests from client
+  - etc...
+- Also in this package, you handle presenters or anything to be done between client and your application.

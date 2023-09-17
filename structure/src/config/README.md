@@ -1,0 +1,1 @@
+- In this package, you put any functions to set up constants, env variables, messages or anything about configurations
