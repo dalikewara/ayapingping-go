@@ -1,5 +1,12 @@
 # Changelogs
 
+### 2024
+
+- v3.1.0 (2024-01-07)
+  - Change some rules to simplify possible implementations
+  - Add new command to create new `entity`, `repository` & `usecase`
+    > This command only work if you follow the base AyaPingPing Go project structure and not change the main behaviour
+
 ### 2023
 
 - v3.0.0 (2023-09-17)

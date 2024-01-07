@@ -18,8 +18,9 @@ import (
 )
 
 type input struct {
-	text string
-	val  string
+	text     string
+	textLess string
+	val      string
 }
 
 type option struct {
@@ -30,17 +31,19 @@ type option struct {
 	confirmation   *input
 }
 
-var version = "v3.0.0"
+var version = "v3.1.0"
 var baseModulePath = "github.com/dalikewara/ayapingping-go/v3"
 var opt = &option{
 	welcomeMessage: &input{
 		text: fmt.Sprintf("Welcome to AyaPingPing (Go) %s. Let's create a new project!", version),
 	},
 	projectName: &input{
-		text: "Project name (ex: my-project)",
+		text:     "Project name (ex: my-project)",
+		textLess: "Project name",
 	},
 	goModulePath: &input{
-		text: "Go module path (ex: my-project, or example.com/user_example/my-project)",
+		text:     "Go module path (ex: my-project, or example.com/user_example/my-project)",
+		textLess: "Go module path",
 	},
 	summary: &input{
 		text: "We'll generate new project based on these options:",
@@ -56,8 +59,8 @@ func main() {
 	opt.projectName.val = readStatementInput(reader, opt.projectName.text, false)
 	opt.goModulePath.val = readStatementInput(reader, opt.goModulePath.text, false)
 	fmt.Println(fmt.Sprintf("\n%s\n", opt.summary.text))
-	fmt.Println(fmt.Sprintf("%s `%s`", opt.projectName.text, opt.projectName.val))
-	fmt.Println(fmt.Sprintf("%s `%s`", opt.goModulePath.text, opt.goModulePath.val))
+	fmt.Println(fmt.Sprintf("%s: %s", opt.projectName.textLess, opt.projectName.val))
+	fmt.Println(fmt.Sprintf("%s: %s", opt.goModulePath.textLess, opt.goModulePath.val))
 	fmt.Println("")
 	opt.confirmation.val = readQuestionInput(reader, opt.confirmation.text, false)
 	if opt.confirmation.val == "y" {
@@ -130,7 +133,6 @@ func generator(option *option) {
 		walkCreateDir(info, "src", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "src", path, projectPath, goModulePath)
 		walkWriteFile(info, "structure/.dockerignore", runtimePath, path, projectPath, goModulePath)
-		walkWriteFile(info, "structure/docker-compose.yml", runtimePath, path, projectPath, goModulePath)
 		walkWriteFile(info, "structure/Dockerfile", runtimePath, path, projectPath, goModulePath)
 		walkWriteFile(info, "structure/Makefile", runtimePath, path, projectPath, goModulePath)
 		walkWriteFile(info, "structure/main.go", runtimePath, path, projectPath, goModulePath)
@@ -187,7 +189,7 @@ func writeFile(sourcePath, destinationPath, newModulePath string) {
 		panic(err)
 	}
 	if newModulePath != "" {
-		fData = bytes.Replace(fData, []byte(baseModulePath), []byte(newModulePath), -1)
+		fData = bytes.Replace(fData, []byte(baseModulePath+"/structure"), []byte(newModulePath), -1)
 	}
 	if err = os.WriteFile(destinationPath, fData, 0666); err != nil {
 		panic(err)

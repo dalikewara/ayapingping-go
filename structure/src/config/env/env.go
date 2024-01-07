@@ -1,7 +1,7 @@
 package env
 
-// Parse
-
-func Parse(scan interface{}) error {
-	panic("implement me")
+// ParseEnv parses env variables
+func ParseEnv(scan interface{}) error {
+	// Parse the environment variables here...
+	return nil
 }
