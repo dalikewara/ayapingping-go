@@ -46,13 +46,13 @@ Just start working on your project, make changes.
 To implement the concept of Clean Architecture and Domain-Driven Design, and to keep them understandable, we try to
 structure the project in such a way.
 
-> You can see the example project [here](https://github.com/dalikewara/ayapingping-go-example).
-
 ### main.go
 
 This file is your project runner.
 
 - In this file, you initialize dependencies, injections, and anything required to start and run your application
+
+you can use command `go run main.go` or `make start` to run your application
 
 ### src
 
@@ -65,6 +65,7 @@ Service is an application handler.
 - In this package, you put your application handlers, servers or clients. Example:
   - `src/service/rest/`, to handle REST requests from client
   - `src/service/grpc/`, to handle gRPC requests from client
+  - `src/service/cron/`, to handle CRON
   - etc...
 - Also in this package, you handle presenters or anything to be done between client and your application.
 
@@ -73,6 +74,7 @@ Service is an application handler.
 Configuration setup used by your project.
 
 - In this package, you put any functions to set up constants, env variables, messages or anything about configurations
+- For constant `const` configuration, you may use the variable directly from anywhere
 
 ### src/adapter
 
@@ -94,6 +96,7 @@ Helpers (custom functions) to help you do some common tasks.
 
 - In this package, you create packages to help you do some common tasks
 - Provide reusable packages for your application
+- You may call any functions inside this package from anywhere
 
 ### src/repository
 
@@ -134,8 +137,6 @@ Infrastructure configuration of your projects.
 
 You're free to create your own style to suit your requirements as long as still follow the main architecture concept.
 You can create folders like; `migration` to place your database migrations, `tmp` to place temporary files, etc.
-
-> You can see the example project [here](https://github.com/dalikewara/ayapingping-go-example).
 
 ## Release
 
