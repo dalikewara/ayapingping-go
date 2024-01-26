@@ -2,8 +2,7 @@ package rest
 
 import (
 	"github.com/dalikewara/ayapingping-go/v3/structure/src/config"
-	"github.com/dalikewara/ayapingping-go/v3/structure/src/service/rest/handler/ping"
-	"github.com/dalikewara/ayapingping-go/v3/structure/src/service/rest/handler/userGetDetail"
+	"github.com/dalikewara/ayapingping-go/v3/structure/src/service/rest/handler/exampleGet"
 	"github.com/dalikewara/ayapingping-go/v3/structure/src/usecase"
 	"net/http"
 )
@@ -14,9 +13,9 @@ func Routes(cfg *config.Config, useCase *usecase.UseCase) map[string][]map[strin
 		"": {
 			{
 				"method": "GET",
-				"path":   "/ping",
+				"path":   "/example",
 				"httpServerHandlers": []http.HandlerFunc{
-					ping.NewV1HttpServer().String,
+					exampleGet.NewV1HttpServer(useCase.GetExample).JSON,
 				},
 				// If you want to use different or other route handlers
 				//"ginGonicHandlers": []gin.HandlerFunc{
@@ -24,14 +23,15 @@ func Routes(cfg *config.Config, useCase *usecase.UseCase) map[string][]map[strin
 				//},
 			},
 		},
-		"/api/v1/user": {
-			{
-				"method": "GET",
-				"path":   "/detail",
-				"httpServerHandlers": []http.HandlerFunc{
-					userGetDetail.NewV1HttpServer(useCase.GetUserDetail).JSON,
-				},
-			},
-		},
+		// If you want to add more route path groups. For example: `GET /api/v1/user/get-detail`
+		//"/api/v1/user": {
+		//	{
+		//		"method": "GET",
+		//		"path":   "/get-detail",
+		//		"httpServerHandlers": []http.HandlerFunc{
+		//			exampleGet.NewV1HttpServer(useCase.GetUserDetail).JSON,
+		//		},
+		//	},
+		//},
 	}
 }

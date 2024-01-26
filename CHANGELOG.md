@@ -2,6 +2,9 @@
 
 ### 2024
 
+- v3.0.2 (2024-01-26)
+  - Refactor some structures
+
 - v3.0.1 (2024-01-07)
   - Fix and change some rules to simplify possible implementations
 

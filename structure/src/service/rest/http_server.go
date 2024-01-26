@@ -14,21 +14,21 @@ type httpServerHandler struct {
 }
 
 // Serve serves & runs the http server
-func (g *httpServerHandler) Serve() {
+func (h *httpServerHandler) Serve() {
 	handler := http.NewServeMux()
 
-	for rootPath, endpoints := range Routes(g.cfg, g.useCase) {
+	for rootPath, endpoints := range Routes(h.cfg, h.useCase) {
 		for _, endpoint := range endpoints {
 			handler.HandleFunc(rootPath+endpoint["path"].(string), endpoint["httpServerHandlers"].([]http.HandlerFunc)[0])
 		}
 	}
 
-	g.client.Handler = handler
-	g.client.Addr = ":" + g.cfg.RESTPort
+	h.client.Handler = handler
+	h.client.Addr = ":" + h.cfg.RESTPort
 
-	fmt.Println("App running on port: ", g.cfg.RESTPort)
+	fmt.Println("App running on port: ", h.cfg.RESTPort)
 
-	if err := g.client.ListenAndServe(); err != nil {
+	if err := h.client.ListenAndServe(); err != nil {
 		panic(err)
 	}
 }

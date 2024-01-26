@@ -4,5 +4,5 @@
 - You should always call your repository methods inside the use case package
 - You may use your `src/library` functions directly in this package
 - Any changes outside this package should not affect your repositories (except changes for business entity)
-- If you need config variables, database frameworks, or external clients, pass/inject them as dependency
+- If you need config variables, database frameworks, or external clients, pass/inject them as a dependency
 - You can use your own style as long as it doesn't break the main idea

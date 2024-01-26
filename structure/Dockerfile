@@ -15,7 +15,6 @@ RUN chmod +x infra/chmod.sh
 RUN ./infra/chmod.sh
 
 # Build the app
-
 RUN ./infra/docker-build.sh
 
 # Run apps

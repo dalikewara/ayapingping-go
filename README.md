@@ -5,7 +5,7 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go)
 ![GitHub license](https://img.shields.io/github/license/dalikewara/ayapingping-go)
 
-**ayapingping-go** generates standard project structure for building applications in Golang that follow Clean
+**ayapingping-go** generates standard project structure to build applications in Golang that follow Clean
 Architecture and Domain-Driven Design concept.
 
 ## Getting started
@@ -44,63 +44,44 @@ Just start working on your project, make changes.
 ## Project structure
 
 To implement the concept of Clean Architecture and Domain-Driven Design, and to keep them understandable, we try to
-structure the project in such a way.
+structure the project like this:
 
 ### main.go
 
-This file is your project runner.
-
 - In this file, you initialize dependencies, injections, and anything required to start and run your application
-
-you can use command `go run main.go` or `make start` to run your application
-
-### src
-
-Main source code of your project.
+- You can use command `go run main.go` or `make start` to run your application
 
 ### src/service
-
-Service is an application handler.
 
 - In this package, you put your application handlers, servers or clients. Example:
   - `src/service/rest/`, to handle REST requests from client
   - `src/service/grpc/`, to handle gRPC requests from client
   - `src/service/cron/`, to handle CRON
   - etc...
-- Also in this package, you handle presenters or anything to be done between client and your application.
+- Also in this package, you put presenters or anything to be done between client and your application.
 
 ### src/config
 
-Configuration setup used by your project.
-
-- In this package, you put any functions to set up constants, env variables, messages or anything about configurations
+- In this package, you put any functions to set up constant variables, env variables, messages or anything about configurations
 - For constant `const` configuration, you may use the variable directly from anywhere
 
 ### src/adapter
-
-Client adapters used by your project.
 
 - In this package, you put any functions to connect to external frameworks or connections like database, external client, etc
 
 ### src/entity
 
-Main business model of your project.
-
 - Entity is your main business model
-- Here you define your main object models or properties for your business
-- Keep this package simple, don't code anything that is not related to the model itself
+- Here you define your main object models or properties for your business, like database model, DTO (Data Transfer Object), etc.
+- Keep this package as simple as possible. Don't code anything that is not related to the model itself
 
 ### src/library
 
-Helpers (custom functions) to help you do some common tasks.
-
-- In this package, you create packages to help you do some common tasks
-- Provide reusable packages for your application
+- In this package, you create custom helper functions
+- Provide reusable helpers for your application
 - You may call any functions inside this package from anywhere
 
 ### src/repository
-
-Main business repository of your project.
 
 - Repository is a place where you communicate with the real external data resource, like database, cloud service, external service, etc.
 - It's always better to keep your repository as simple as possible, don't add too much logic here
@@ -108,28 +89,24 @@ Main business repository of your project.
 - You should always call your repository methods inside the use case package
 - You may use your `src/library` functions directly in this package
 - Any changes outside this package should not affect your repositories (except changes for business entity)
-- If you need config variables, database frameworks, or external clients, pass/inject them as dependency
+- If you need config variables, database frameworks, or external clients, pass/inject them as a dependency
 - You can use your own style as long as it doesn't break the main idea
 
 ### src/usecase
 
-Main business logic of your project.
-
 - Use case is your main business logic
 - You should always call your repository methods in this package
 - You may use your `src/library` functions directly in this package
-- Any changes outside this package should not affect your use cases (except changes for business entity or repository)
-- If you need config variables, external clients, or repositories, pass/inject them as dependency
+- Any changes outside this package should not affect your use cases (except changes for business entity and repository)
+- If you need config variables, external clients, or repositories, pass/inject them as a dependency
 - You can use your own style as long as it doesn't break the main idea
 
 ### infra
 
-Infrastructure configuration of your projects.
-
 - In this place, you put any infrastructure configurations or scripts to help you deploy your project in a server or vm
 - It is always **BETTER TO** create folders based on what environment used, example:
   - `infra/dev`, for development
-  - `infra/rc`, for release candidate
+  - `infra/staging`, for staging
   - `infra/prod`, for production
   - etc...
 

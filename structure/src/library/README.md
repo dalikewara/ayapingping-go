@@ -1,3 +1,3 @@
-- In this package, you create packages to help you do some common tasks
-- Provide reusable packages for your application
+- In this package, you create custom helper functions
+- Provide reusable helpers for your application
 - You may call any functions inside this package from anywhere

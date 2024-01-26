@@ -31,7 +31,7 @@ type option struct {
 	confirmation   *input
 }
 
-var version = "v3.0.1"
+var version = "v3.0.2"
 var baseModulePath = "github.com/dalikewara/ayapingping-go/v3"
 var opt = &option{
 	welcomeMessage: &input{
@@ -130,6 +130,8 @@ func generator(option *option) {
 		projectPath = strings.ReplaceAll(projectPath, "/structure", "")
 		walkCreateDir(info, "infra", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "infra", path, projectPath, "")
+		walkCreateDir(info, "migration", runtimePath, projectPath)
+		walkCreateFileAndReplaceModule(info, "migration", path, projectPath, "")
 		walkCreateDir(info, "src", runtimePath, projectPath)
 		walkCreateFileAndReplaceModule(info, "src", path, projectPath, goModulePath)
 		walkWriteFile(info, "structure/.dockerignore", runtimePath, path, projectPath, goModulePath)
