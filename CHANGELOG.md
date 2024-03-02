@@ -2,7 +2,7 @@
 
 ## 2024
 
-- **v4.0.0** (2024-03-02)
+- **v4.0.0 - v4.0.1** (2024-03-02)
   - Major project structure changes
   - Transition to Feature-Driven Design
   - Introduction of `importFeature` command

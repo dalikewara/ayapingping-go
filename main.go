@@ -73,7 +73,7 @@ func createNewProject() error {
 	fmt.Println("Go module: " + goModule)
 	fmt.Println("")
 
-	confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted. ", false)
+	confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted... ", false)
 	if err != nil {
 		return err
 	}
@@ -215,7 +215,7 @@ func importFeature(args []string) error {
 
 		fmt.Println("")
 
-		confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted. ", false)
+		confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted... ", false)
 		if err != nil {
 			return err
 		}
