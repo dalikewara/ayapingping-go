@@ -194,7 +194,7 @@ func importFeature(args []string) error {
 
 		reader := bufio.NewReader(os.Stdin)
 
-		fmt.Println("Features to be added from `" + fromPath + "`: ")
+		fmt.Println("Features to be imported from `" + fromPath + "`: ")
 
 		for _, feat := range feats {
 			if feat == nil {
@@ -226,7 +226,7 @@ func importFeature(args []string) error {
 
 		fmt.Println("")
 	} else {
-		return errors.New("no feature found to be added")
+		return errors.New("no feature found to be imported")
 	}
 
 	fmt.Println("Adding features... [RUNNING]")
@@ -236,7 +236,7 @@ func importFeature(args []string) error {
 		return errors.New("no go module found from the current project")
 	}
 
-	var totalAdded int
+	var totalImported int
 
 	for _, feat := range feats {
 		if feat == nil {
@@ -247,7 +247,7 @@ func importFeature(args []string) error {
 			continue
 		}
 
-		totalAdded += 1
+		totalImported += 1
 
 		if feat.featureDependency != nil {
 			for _, domainFilepath := range feat.featureDependency.Domains {
@@ -274,7 +274,7 @@ func importFeature(args []string) error {
 		return err
 	}
 
-	fmt.Println(fmt.Sprintf("%v feature(s) added", totalAdded))
+	fmt.Println(fmt.Sprintf("%v feature(s) imported", totalImported))
 
 	return nil
 }
