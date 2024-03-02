@@ -1,0 +1,9 @@
+{
+  "domains": [
+    "example.go"
+  ],
+  "features": [],
+  "commons": [
+    "validation/username.go"
+  ]
+}

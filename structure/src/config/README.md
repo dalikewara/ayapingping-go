@@ -1,2 +1,0 @@
-- In this package, you put any functions to set up constant variables, env variables, messages or anything about configurations
-- For constant `const` configuration, you may use the variable directly from anywhere

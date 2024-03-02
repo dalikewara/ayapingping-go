@@ -1,1 +1,0 @@
-- In this package, you put any functions to connect to external frameworks or connections like database, external client, etc
