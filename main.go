@@ -179,8 +179,6 @@ func importFeature(args []string) error {
 		}
 
 		fromPath = tmpProjectPath
-
-		return errors.New("hjgj")
 	}
 
 	fmt.Println("Checking features... [RUNNING]")
