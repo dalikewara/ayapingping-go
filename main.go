@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"time"
 )
 
 const name = "AyaPingPing (Go)"
@@ -39,8 +40,8 @@ func main() {
 	fmt.Println(name + " " + version)
 
 	for i := 0; i < len(os.Args); i++ {
-		if os.Args[i] == "addFeature" {
-			if err := addFeature(os.Args[i+1:]); err != nil {
+		if os.Args[i] == "importFeature" {
+			if err := importFeature(os.Args[i+1:]); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
@@ -72,7 +73,7 @@ func createNewProject() error {
 	fmt.Println("Go module: " + goModule)
 	fmt.Println("")
 
-	confirmation, err := readInput(reader, "Type `y` to confirm, otherwise will abort the process... ", false)
+	confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted. ", false)
 	if err != nil {
 		return err
 	}
@@ -122,8 +123,8 @@ func createNewProject() error {
 				return err
 			}
 		}
-		if isDir(path) && lenPathSplit >= 2 {
-			if err = copyDir(runtimeDir, path, projectName+pathSeparator+pathSplit[lenPathSplit-1], currentGoModule, goModule); err != nil {
+		if isFile(path) && lenPathSplit >= 2 {
+			if err = copyFile(path, projectName+pathSeparator+pathSplit[lenPathSplit-1], currentGoModule, goModule); err != nil {
 				_ = removeProject(projectName)
 
 				return err
@@ -155,9 +156,9 @@ func createNewProject() error {
 	return nil
 }
 
-func addFeature(args []string) error {
+func importFeature(args []string) error {
 	if len(args) != 3 || args[1] != "from" {
-		return errors.New("invalid `addFeature` arguments, please follow: addFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
+		return errors.New("invalid `importFeature` arguments, please follow: importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
 	}
 	if len(args[0]) < 1 || args[0] == " " {
 		return errors.New("feature name cannot be empty or blank space")
@@ -169,7 +170,17 @@ func addFeature(args []string) error {
 	fromPath := args[2]
 
 	if isFromGit(fromPath) {
+		tmpProjectPath, err := getProjectPathFromGit(fromPath)
 
+		defer removeDir(tmpProjectPath)
+
+		if err != nil {
+			return err
+		}
+
+		fromPath = tmpProjectPath
+
+		return errors.New("hjgj")
 	}
 
 	fmt.Println("Checking features... [RUNNING]")
@@ -204,7 +215,7 @@ func addFeature(args []string) error {
 
 		fmt.Println("")
 
-		confirmation, err := readInput(reader, "Type `y` to confirm, otherwise will abort the process... ", false)
+		confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted. ", false)
 		if err != nil {
 			return err
 		}
@@ -480,7 +491,7 @@ func replaceGoModule(filepath string, oldGoModule string, newModule string) erro
 	if err != nil {
 		return err
 	}
-	fileData = bytes.Replace(fileData, []byte(oldGoModule), []byte(newModule), -1)
+	fileData = bytes.Replace(fileData, []byte("\""+oldGoModule), []byte("\""+newModule), -1)
 	if err = os.WriteFile(filepath, fileData, os.ModePerm); err != nil {
 		return err
 	}
@@ -489,6 +500,10 @@ func replaceGoModule(filepath string, oldGoModule string, newModule string) erro
 }
 
 func removeProject(dirPath string) error {
+	return os.RemoveAll(dirPath)
+}
+
+func removeDir(dirPath string) error {
 	return os.RemoveAll(dirPath)
 }
 
@@ -654,4 +669,16 @@ func collectFeaturesFromArgument(feaArg string, fromPath string) features {
 	}
 
 	return feats
+}
+
+func getProjectPathFromGit(url string) (string, error) {
+	tmpGitProjectDir := fmt.Sprintf("tmp-importFeature-from-git-%v", time.Now().UnixNano())
+
+	cmd := exec.Command("git", "clone", "-b", "v4", url, tmpGitProjectDir)
+
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+
+	return tmpGitProjectDir, nil
 }

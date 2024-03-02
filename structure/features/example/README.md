@@ -1,8 +1,9 @@
 - A **Feature** encapsulates your main business feature, logic, or service
 - Here, you include everything necessary to ensure the proper functioning of the feature
+- Please prioritize **Feature-Driven Design**, ensuring that features can be easily adapted and seamlessly integrated and imported into different projects
 - Feel free to adopt your own style as long as it aligns with the core concept
 - If another **Feature** imports anything from this location (the current **Feature**), and you want the current **Feature** to be 
-accessible through the `addFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.yaml` file
+accessible through the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
 - A standard **Feature** comprises the following parts: `commons`, `delivery`, `repositories`, and `usecases`
   - **repositories**
     - Handles communication with external data resources like databases, cloud services, or external services
@@ -20,5 +21,5 @@ accessible through the `addFeature` command without the risk of missing package 
   - **commons**
     - Accommodates functions tailored to help with common tasks specifically for the **Feature**—treat them as helpers
     - You can also directly call these common functions from anywhere.
-- The `dependency.yaml` is **OPTIONAL**, and **ONLY REQUIRED WHEN** you use the `appendFeature` command. It serves to define 
+- The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` command. It serves to define 
 the **Feature** dependencies and avoids possible missing package errors

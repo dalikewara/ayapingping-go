@@ -54,16 +54,17 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~Featu
 - The **Domain** represents your primary business model or entity
 - Define your main object models or properties for your business here, including database models, DTOs (Data Transfer Objects), etc
 - Keep this package as straightforward as possible. Avoid including any code that is not directly related to the model itself
-- If a **Feature** imports anything from this location, and you want the **Feature** to be accessible through the `addFeature` command
-without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.yaml` file
+- If a **Feature** imports anything from this location, and you want the **Feature** to be accessible through the `importFeature` command
+without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.json` file
 
 ### features
 
 - A **Feature** encapsulates your main business feature, logic, or service
 - Here, you include everything necessary to ensure the proper functioning of the feature
+- Please prioritize **Feature-Driven Design**, ensuring that features can be easily adapted and seamlessly integrated and imported into different projects
 - Feel free to adopt your own style as long as it aligns with the core concept
 - If another **Feature** imports anything from this location (the current **Feature**), and you want the current **Feature** to be
-  accessible through the `addFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.yaml` file
+  accessible through the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
 - A standard **Feature** comprises the following parts: `commons`, `delivery`, `repositories`, and `usecases`
   - **repositories**
     - Handles communication with external data resources like databases, cloud services, or external services
@@ -81,16 +82,15 @@ without the risk of missing package errors, **DON'T FORGET** to include them in 
   - **commons**
     - Accommodates functions tailored to help with common tasks specifically for the **Feature**—treat them as helpers
     - You can also directly call these common functions from anywhere.
-- The `dependency.yaml` is **OPTIONAL**, and **ONLY REQUIRED WHEN** you use the `appendFeature` command. It serves to define
+- The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` command. It serves to define
 the **Feature** dependencies and avoids possible missing package errors
-
 
 ### commons
 
 - In this place, you can implement various functions to assist you in performing common tasks—consider them as helpers
 - Common functions can be directly called from any location
 - If a **Domain** or **Feature** imports anything from this location, and you want the **Feature** to be accessible through
-the `addFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.yaml` file
+the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.json` file
 
 ### infra
 
@@ -105,6 +105,45 @@ the `addFeature` command without the risk of missing package errors, **DON'T FOR
 
 Feel free to create your own style to suit your requirements, as long as you still follow the main architecture concept. 
 You can create folders such as `migration` to store your database migrations, `tmp` for temporary files, etc.
+
+## Importing Features from Another Project
+
+To seamlessly incorporate or import features from another project, use the `importFeature` command.:
+
+```bash
+ayapingping-go importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]
+```
+
+For example:
+
+```bash
+ayapingping-go importFeature exampleFeature from /path/to/your/project
+```
+
+```bash
+ayapingping-go importFeature exampleFeature1,exampleFeature2 from git@github.com:username/project.git
+```
+
+### Feature dependency
+
+If your feature relies on external packages, it's crucial to address dependencies properly during the import process. 
+Failure to import necessary dependencies may result in missing packages. To prevent this, please document your feature 
+dependencies in the `dependency.json` file. Supported dependencies are limited to the following directories: `domain`, `commons`, and `features`. 
+Ensure that your feature dependencies strictly adhere to these directories, avoiding reliance on other locations.
+
+Example `dependency.json` file:
+
+```json
+{
+  "domains": [
+    "example.go"
+  ],
+  "features": [],
+  "commons": [
+    "validation/username.go"
+  ]
+}
+```
 
 ## Release
 
