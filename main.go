@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.0.2"
+const version = "v4.0.3"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
@@ -674,7 +674,7 @@ func collectFeaturesFromArgument(feaArg string, fromPath string) features {
 func getProjectPathFromGit(url string) (string, error) {
 	tmpGitProjectDir := fmt.Sprintf("tmp-importFeature-from-git-%v", time.Now().UnixNano())
 
-	cmd := exec.Command("git", "clone", "-b", "v4", url, tmpGitProjectDir)
+	cmd := exec.Command("git", "clone", url, tmpGitProjectDir)
 
 	if err := cmd.Run(); err != nil {
 		return "", err
