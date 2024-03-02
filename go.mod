@@ -1,3 +1,3 @@
-module github.com/dalikewara/ayapingping-go/v3
+module github.com/dalikewara/ayapingping-go/v4
 
-go 1.18
+go 1.19

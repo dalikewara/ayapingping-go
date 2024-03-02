@@ -1,6 +1,6 @@
 # ayapingping-go
 
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v3)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v4)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go)
 ![GitHub license](https://img.shields.io/github/license/dalikewara/ayapingping-go)
@@ -15,105 +15,96 @@ Architecture and Domain-Driven Design concept.
 You can use the `go install` method:
 
 ```bash
-go install github.com/dalikewara/ayapingping-go/v3@latest
+go install github.com/dalikewara/ayapingping-go/v4@latest
 ```
 
 or, you can also use the `go get` method (DEPRECATED since `go1.17`):
 
 ```bash
-go get github.com/dalikewara/ayapingping-go/v3
+go get github.com/dalikewara/ayapingping-go/v4
 ```
 
 ### Usage
 
-To generate new project, just simply run `ayapingping-go` command:
+To generate a new project, simply run the `ayapingping-go` command:
 
 ```bash
 ayapingping-go
 ```
 
-then enter your project name & your go module path. After you confirm your inputs, the **ayapingping-go** generator will
-setup the project for you.
+Then enter your project name and your Go module path. After you confirm your inputs, the **ayapingping-go** generator will set up the project for you.
 
 ![Alt Text](https://lh3.googleusercontent.com/pw/AM-JKLXHIY-P9tKx2cI0sgdLTxzvK5ErAwkToS-3to790cY4UDg2yullDtehGV2LEtYEDU-a1-xa9t_0vjTJJVri45aDNXN7BLxx-eAxOflZltzzrwF2bILJ9bHQWsCnXtCNDC8tMWZMk4tPtDP1iu9OYmD4=w600-h372-no)
 
 ### What's next?
 
-Just start working on your project, make changes.
+Simply start working on your project and make changes.
 
-## Project structure
+## Project Structure
 
-To implement the concept of Clean Architecture and Domain-Driven Design, and to keep them understandable, we try to
-structure the project like this:
+To implement the concept of Clean Architecture and ~~Domain-Driven Design~~Feature-Driven Design, and to keep them understandable, we structure the project like this:
 
 ### main.go
 
-- In this file, you initialize dependencies, injections, and anything required to start and run your application
-- You can use command `go run main.go` or `make start` to run your application
+- In this file, you initialize dependencies, injections, and anything required to start and run your application.
+- You can use the command `go run main.go` or `make start` to run your application.
 
-### src/service
+### domain
 
-- In this package, you put your application handlers, servers or clients. Example:
-  - `src/service/rest/`, to handle REST requests from client
-  - `src/service/grpc/`, to handle gRPC requests from client
-  - `src/service/cron/`, to handle CRON
-  - etc...
-- Also in this package, you put presenters or anything to be done between client and your application.
+- The **Domain** represents your primary business model or entity
+- Define your main object models or properties for your business here, including database models, DTOs (Data Transfer Objects), etc
+- Keep this package as straightforward as possible. Avoid including any code that is not directly related to the model itself
+- If a **Feature** imports anything from this location, and you want the **Feature** to be accessible through the `addFeature` command
+without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.yaml` file
 
-### src/config
+### features
 
-- In this package, you put any functions to set up constant variables, env variables, messages or anything about configurations
-- For constant `const` configuration, you may use the variable directly from anywhere
+- A **Feature** encapsulates your main business feature, logic, or service
+- Here, you include everything necessary to ensure the proper functioning of the feature
+- Feel free to adopt your own style as long as it aligns with the core concept
+- If another **Feature** imports anything from this location (the current **Feature**), and you want the current **Feature** to be
+  accessible through the `addFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.yaml` file
+- A standard **Feature** comprises the following parts: `commons`, `delivery`, `repositories`, and `usecases`
+  - **repositories**
+    - Handles communication with external data resources like databases, cloud services, or external services
+    - Keep your repositories as simple as possible; avoid adding excessive logic
+    - If necessary, separate operations into smaller methods
+    - Changes outside the `repositories` should not affect them (except changes for business domain/model/entity)
+    - For config variables, database frameworks, or external clients, pass or inject them as dependencies
+  - **usecases**
+    - Contains the main feature logic
+    - Changes outside the `usecases` should not impact them (except changes for business domain/model/entity and repositories)
+    - For config variables, external clients, or repositories, pass or inject them as dependencies
+  - **delivery**
+    - Hosts feature handlers like HTTP handlers, gRPC handlers, cron jobs, or anything serving between the client and your application or feature
+    - For config variables, external clients, or use cases, pass or inject them as dependencies
+  - **commons**
+    - Accommodates functions tailored to help with common tasks specifically for the **Feature**—treat them as helpers
+    - You can also directly call these common functions from anywhere.
+- The `dependency.yaml` is **OPTIONAL**, and **ONLY REQUIRED WHEN** you use the `appendFeature` command. It serves to define
+the **Feature** dependencies and avoids possible missing package errors
 
-### src/adapter
 
-- In this package, you put any functions to connect to external frameworks or connections like database, external client, etc
+### commons
 
-### src/entity
-
-- Entity is your main business model
-- Here you define your main object models or properties for your business, like database model, DTO (Data Transfer Object), etc.
-- Keep this package as simple as possible. Don't code anything that is not related to the model itself
-
-### src/library
-
-- In this package, you create custom helper functions
-- Provide reusable helpers for your application
-- You may call any functions inside this package from anywhere
-
-### src/repository
-
-- Repository is a place where you communicate with the real external data resource, like database, cloud service, external service, etc.
-- It's always better to keep your repository as simple as possible, don't add too much logic here
-- If you have to, you can separate the operations into smaller methods
-- You should always call your repository methods inside the use case package
-- You may use your `src/library` functions directly in this package
-- Any changes outside this package should not affect your repositories (except changes for business entity)
-- If you need config variables, database frameworks, or external clients, pass/inject them as a dependency
-- You can use your own style as long as it doesn't break the main idea
-
-### src/usecase
-
-- Use case is your main business logic
-- You should always call your repository methods in this package
-- You may use your `src/library` functions directly in this package
-- Any changes outside this package should not affect your use cases (except changes for business entity and repository)
-- If you need config variables, external clients, or repositories, pass/inject them as a dependency
-- You can use your own style as long as it doesn't break the main idea
+- In this place, you can implement various functions to assist you in performing common tasks—consider them as helpers
+- Common functions can be directly called from any location
+- If a **Domain** or **Feature** imports anything from this location, and you want the **Feature** to be accessible through
+the `addFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.yaml` file
 
 ### infra
 
-- In this place, you put any infrastructure configurations or scripts to help you deploy your project in a server or vm
-- It is always **BETTER TO** create folders based on what environment used, example:
-  - `infra/dev`, for development
-  - `infra/staging`, for staging
-  - `infra/prod`, for production
-  - etc...
+- This is the location to house infrastructure configurations or scripts to facilitate the deployment of your project on a server or VM
+- It is always **BETTER** to organize folders based on the environment being used, such as:
+  - `infra/dev` for development
+  - `infra/staging` for staging
+  - `infra/prod` for production
+  - and so on...
 
-### Make your own
+### Make It Your Own
 
-You're free to create your own style to suit your requirements as long as still follow the main architecture concept.
-You can create folders like; `migration` to place your database migrations, `tmp` to place temporary files, etc.
+Feel free to create your own style to suit your requirements, as long as you still follow the main architecture concept. 
+You can create folders such as `migration` to store your database migrations, `tmp` for temporary files, etc.
 
 ## Release
 

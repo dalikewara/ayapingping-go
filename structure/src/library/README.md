@@ -1,3 +1,0 @@
-- In this package, you create custom helper functions
-- Provide reusable helpers for your application
-- You may call any functions inside this package from anywhere
