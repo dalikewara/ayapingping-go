@@ -3,8 +3,8 @@ package exampleGet
 import (
 	"encoding/json"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/commons/presenterJSON"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/middlewares/checkMethod"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utilities/presenterJSON"
 	"net/http"
 )
 

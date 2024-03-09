@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.1.2"
+const version = "v4.2.0"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
