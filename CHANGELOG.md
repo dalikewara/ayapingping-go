@@ -2,7 +2,7 @@
 
 ## 2024
 
-- **v4.1.0** (2024-03-09)
+- **v4.1.0 - v4.1.1** (2024-03-09)
   - Rename `structure` directory to `_baseStructure`
   - Update some description in `README.md`
 

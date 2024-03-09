@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.1.0"
+const version = "v4.1.1"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
@@ -63,7 +63,7 @@ func createNewProject() error {
 		return err
 	}
 
-	goModule, err := readInput(reader, "Enter go module (ex: my-project, or example2.com/user_example/my-project)... ", false)
+	goModule, err := readInput(reader, "Enter go module (ex: my-project, or example.com/user_example/my-project)... ", false)
 	if err != nil {
 		return err
 	}
@@ -158,7 +158,7 @@ func createNewProject() error {
 
 func importFeature(args []string) error {
 	if len(args) != 3 || args[1] != "from" {
-		return errors.New("invalid `importFeature` arguments, please follow: importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example2.com:user/project.git]")
+		return errors.New("invalid `importFeature` arguments, please follow: importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
 	}
 	if len(args[0]) < 1 || args[0] == " " {
 		return errors.New("feature name cannot be empty or blank space")

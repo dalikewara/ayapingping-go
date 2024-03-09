@@ -40,7 +40,7 @@ func main() {
 
 	// Register handlers
 
-	exampleGet.NewV1NetHttp(httpServerMux, getExampleUseCaseV1).RegisterHandler("GET", "/api/v1/example2/get")
+	exampleGet.NewV1NetHttp(httpServerMux, getExampleUseCaseV1).RegisterHandler("GET", "/api/v1/example/get")
 
 	// Start & listen application
 
