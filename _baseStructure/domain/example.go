@@ -2,7 +2,7 @@ package domain
 
 import (
 	"context"
-	"github.com/dalikewara/ayapingping-go/v4/structure/commons/validation"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/validation"
 	"time"
 )
 

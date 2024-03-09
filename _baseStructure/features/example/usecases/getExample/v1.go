@@ -2,8 +2,8 @@ package getExample
 
 import (
 	"context"
-	"github.com/dalikewara/ayapingping-go/v4/structure/domain"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/commons/exampleDTO"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/commons/exampleDTO"
 )
 
 type v1 struct {

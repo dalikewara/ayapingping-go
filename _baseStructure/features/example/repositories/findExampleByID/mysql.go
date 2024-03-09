@@ -3,7 +3,7 @@ package findExampleByID
 import (
 	"context"
 	"database/sql"
-	"github.com/dalikewara/ayapingping-go/v4/structure/domain"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
 )
 
 type mysql struct {

@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/dalikewara/ayapingping-go/v4/structure/commons/env"
-	"github.com/dalikewara/ayapingping-go/v4/structure/commons/mysql"
-	"github.com/dalikewara/ayapingping-go/v4/structure/commons/netHttp"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/delivery/handlers/exampleGet"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/repositories/findExampleByID"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/usecases/getExample"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/env"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/mysql"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/netHttp"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/handlers/exampleGet"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/repositories/findExampleByID"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/usecases/getExample"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 	// Register handlers
 
-	exampleGet.NewV1NetHttp(httpServerMux, getExampleUseCaseV1).RegisterHandler("GET", "/api/v1/example/get")
+	exampleGet.NewV1NetHttp(httpServerMux, getExampleUseCaseV1).RegisterHandler("GET", "/api/v1/example2/get")
 
 	// Start & listen application
 

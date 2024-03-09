@@ -34,7 +34,7 @@ ayapingping-go
 
 Then enter your project name and your Go module path. After you confirm your inputs, the **ayapingping-go** generator will set up the project for you.
 
-![Alt Text](https://lh3.googleusercontent.com/pw/AM-JKLXHIY-P9tKx2cI0sgdLTxzvK5ErAwkToS-3to790cY4UDg2yullDtehGV2LEtYEDU-a1-xa9t_0vjTJJVri45aDNXN7BLxx-eAxOflZltzzrwF2bILJ9bHQWsCnXtCNDC8tMWZMk4tPtDP1iu9OYmD4=w600-h372-no)
+![Alt Text](https://lh3.googleusercontent.com/d/1YdBjAhclT7yB274dcCri60SpUlSgEIjx)
 
 ### What's next?
 

@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.0.3"
+const version = "v4.1.0"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
@@ -63,7 +63,7 @@ func createNewProject() error {
 		return err
 	}
 
-	goModule, err := readInput(reader, "Enter go module (ex: my-project, or example.com/user_example/my-project)... ", false)
+	goModule, err := readInput(reader, "Enter go module (ex: my-project, or example2.com/user_example/my-project)... ", false)
 	if err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func createNewProject() error {
 
 		return err
 	}
-	currentGoModule += "/structure"
+	currentGoModule += "/_baseStructure"
 
 	runtimeDirContents, err := getRuntimeDirContents()
 	if err != nil {
@@ -111,7 +111,7 @@ func createNewProject() error {
 	}
 
 	for _, path := range runtimeDirContents {
-		pathSplit := strings.Split(path, pathSeparator+"structure"+pathSeparator)
+		pathSplit := strings.Split(path, pathSeparator+"_baseStructure"+pathSeparator)
 		lenPathSplit := len(pathSplit)
 
 		if isFile(path) && lenPathSplit == 1 {
@@ -158,7 +158,7 @@ func createNewProject() error {
 
 func importFeature(args []string) error {
 	if len(args) != 3 || args[1] != "from" {
-		return errors.New("invalid `importFeature` arguments, please follow: importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
+		return errors.New("invalid `importFeature` arguments, please follow: importFeature [feature1,feature2,...] from [/local/project or https://example.com/user/project.git or git@example2.com:user/project.git]")
 	}
 	if len(args[0]) < 1 || args[0] == " " {
 		return errors.New("feature name cannot be empty or blank space")
@@ -319,12 +319,12 @@ func getRuntimeDirContents() ([]string, error) {
 	if err = filepath.Walk(runtimeDir, func(path string, info os.FileInfo, err error) error {
 		pathCut := path[lenRuntimeDir:]
 
-		if pathCut == pathSeparator+"LICENSE" || pathCut == pathSeparator+"README.md" || pathCut == pathSeparator+".gitignore" || pathCut == pathSeparator+"structure" {
+		if pathCut == pathSeparator+"LICENSE" || pathCut == pathSeparator+"README.md" || pathCut == pathSeparator+".gitignore" || pathCut == pathSeparator+"_baseStructure" {
 			list = append(list, path)
 
 			return nil
 		}
-		if len(pathCut) >= 11 && pathCut[:11] == pathSeparator+"structure"+pathSeparator {
+		if len(pathCut) >= 16 && pathCut[:16] == pathSeparator+"_baseStructure"+pathSeparator {
 			list = append(list, path)
 
 			return nil

@@ -2,8 +2,8 @@ package checkMethod
 
 import (
 	"encoding/json"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/commons/errMsg"
-	"github.com/dalikewara/ayapingping-go/v4/structure/features/example/commons/presenterJSON"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/commons/errMsg"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/commons/presenterJSON"
 	"net/http"
 	"strings"
 )
