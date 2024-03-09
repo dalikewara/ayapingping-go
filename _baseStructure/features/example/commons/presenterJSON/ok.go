@@ -1,7 +1,7 @@
 package presenterJSON
 
 import (
-	"github.com/dalikewara/ayapingping-go/v4/structure/domain"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
 	"net/http"
 )
 

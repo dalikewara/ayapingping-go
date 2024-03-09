@@ -1,6 +1,6 @@
 package exampleDTO
 
-import "github.com/dalikewara/ayapingping-go/v4/structure/domain"
+import "github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
 
 func NewDTO1(example *domain.Example) *domain.ExampleDTO1 {
 	return &domain.ExampleDTO1{

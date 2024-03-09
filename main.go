@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.0.3"
+const version = "v4.1.2"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
@@ -99,7 +99,7 @@ func createNewProject() error {
 
 		return err
 	}
-	currentGoModule += "/structure"
+	currentGoModule += "/_baseStructure"
 
 	runtimeDirContents, err := getRuntimeDirContents()
 	if err != nil {
@@ -111,7 +111,7 @@ func createNewProject() error {
 	}
 
 	for _, path := range runtimeDirContents {
-		pathSplit := strings.Split(path, pathSeparator+"structure"+pathSeparator)
+		pathSplit := strings.Split(path, pathSeparator+"_baseStructure"+pathSeparator)
 		lenPathSplit := len(pathSplit)
 
 		if isFile(path) && lenPathSplit == 1 {
@@ -319,12 +319,12 @@ func getRuntimeDirContents() ([]string, error) {
 	if err = filepath.Walk(runtimeDir, func(path string, info os.FileInfo, err error) error {
 		pathCut := path[lenRuntimeDir:]
 
-		if pathCut == pathSeparator+"LICENSE" || pathCut == pathSeparator+"README.md" || pathCut == pathSeparator+".gitignore" || pathCut == pathSeparator+"structure" {
+		if pathCut == pathSeparator+"LICENSE" || pathCut == pathSeparator+"README.md" || pathCut == pathSeparator+".gitignore" || pathCut == pathSeparator+"_baseStructure" {
 			list = append(list, path)
 
 			return nil
 		}
-		if len(pathCut) >= 11 && pathCut[:11] == pathSeparator+"structure"+pathSeparator {
+		if len(pathCut) >= 16 && pathCut[:16] == pathSeparator+"_baseStructure"+pathSeparator {
 			list = append(list, path)
 
 			return nil

@@ -2,6 +2,10 @@
 
 ## 2024
 
+- **v4.1.0 - v4.1.2** (2024-03-09)
+  - Rename `structure` directory to `_baseStructure`
+  - Update some description in `README.md`
+
 - **v4.0.0 - v4.0.3** (2024-03-02)
   - Major project structure changes
   - Transition to Feature-Driven Design
