@@ -1,6 +1,1 @@
 - This is the location to house infrastructure configurations or scripts to facilitate the deployment of your project on a server or VM
-- It is always **BETTER** to organize folders based on the environment being used, such as:
-  - `infra/dev` for development
-  - `infra/staging` for staging
-  - `infra/prod` for production
-  - and so on...

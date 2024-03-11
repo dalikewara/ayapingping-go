@@ -2,8 +2,7 @@ package checkMethod
 
 import (
 	"encoding/json"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utilities/errMsg"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utilities/presenterJSON"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utility"
 	"net/http"
 	"strings"
 )
@@ -11,7 +10,7 @@ import (
 func NetHttp(method string, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if strings.ToUpper(method) != strings.ToUpper(r.Method) {
-			httpStatus, result := presenterJSON.NotOK("00", "", []error{errMsg.InvalidRequestMethod})
+			httpStatus, result := utility.PresenterJSONNotOK("00", "", []error{utility.ErrInvalidRequestMethod})
 			resultBytes, _ := json.Marshal(result)
 
 			w.WriteHeader(httpStatus)

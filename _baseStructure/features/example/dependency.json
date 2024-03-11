@@ -4,6 +4,7 @@
   ],
   "features": [],
   "commons": [
-    "validation/username.go"
+    "validateUsername.go",
+    "timeNow.go"
   ]
 }

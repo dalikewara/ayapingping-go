@@ -2,7 +2,7 @@ package domain
 
 import (
 	"context"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/validation"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/common"
 	"time"
 )
 
@@ -26,11 +26,11 @@ type Example struct {
 }
 
 func (e *Example) SetCreatedAtNow() {
-	e.CreatedAt = time.Now()
+	e.CreatedAt = common.TimeNowUTC()
 }
 
 func (e *Example) ValidateUsername() error {
-	return validation.Username(e.Username)
+	return common.ValidateUsername(e.Username)
 }
 
 type ExampleDTO1 struct {

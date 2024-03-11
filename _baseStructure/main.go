@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/env"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/mysql"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/commons/netHttp"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/common"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/handlers/exampleGet"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/repositories/findExampleByID"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/usecases/getExample"
@@ -13,22 +11,22 @@ import (
 func main() {
 	// Parse env
 
-	envCfg, err := env.Parse()
+	envCfg, err := common.ParseEnv()
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 
 	// Database connection
 
-	mysqlDB, err := mysql.Connect()
+	mysqlDB, err := common.ConnectMySQL(envCfg.MySQLHost, envCfg.MySQLPort, envCfg.MySQLUser, envCfg.MySQLPass, envCfg.MySQLDBName)
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 
 	// Http server initialization
 
-	httpServer := netHttp.Server()
-	httpServerMux := netHttp.ServerMux()
+	httpServer := common.NewNetHttpServer()
+	httpServerMux := common.NewNetHttpServerMux()
 
 	// Repositories
 

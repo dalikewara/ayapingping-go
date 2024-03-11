@@ -9,11 +9,11 @@ chmod: ## chmod shell scripts
 start: chmod ## starts service
 	./infra/start.sh
 
-docker-up-local: chmod ## ups docker service local
-	./infra/local/docker-up.sh
+docker-up: chmod ## ups docker service
+	./infra/docker-up.sh
 
-docker-stop-local: chmod ## stops docker service local
-	./infra/local/docker-stop.sh
+docker-stop: chmod ## stops docker service
+	./infra/docker-stop.sh
 
-docker-down-local: chmod ## removes docker service local
-	./infra/local/docker-down.sh
+docker-down: chmod ## removes docker service
+	./infra/docker-down.sh

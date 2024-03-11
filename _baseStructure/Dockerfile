@@ -15,7 +15,7 @@ RUN chmod +x infra/chmod.sh
 RUN ./infra/chmod.sh
 
 # Build the app
-RUN ./infra/docker-build.sh
+RUN ./infra/build.sh
 
 # Run apps
-ENTRYPOINT ["/ayapingping-go/infra/docker-entrypoint.sh"]
+ENTRYPOINT ["/ayapingping-go/infra/start.sh"]
