@@ -2,6 +2,10 @@
 
 ## 2024
 
+- **v4.2.0 - v4.3.9** (2024-03-11)
+  - Add command `importDomain` and `importCommon`
+  - Update & fix some scripts
+
 - **v4.1.0 - v4.2.0** (2024-03-09)
   - Rename `structure` directory to `_baseStructure`
   - Update some description in `README.md`

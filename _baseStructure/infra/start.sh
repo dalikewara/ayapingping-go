@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
 go run main.go

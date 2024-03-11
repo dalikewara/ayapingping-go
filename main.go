@@ -17,7 +17,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.2.0"
+const version = "v4.3.9"
 const pathSeparator = string(os.PathSeparator)
 
 type feature struct {
@@ -42,6 +42,22 @@ func main() {
 	for i := 0; i < len(os.Args); i++ {
 		if os.Args[i] == "importFeature" {
 			if err := importFeature(os.Args[i+1:]); err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			return
+		}
+
+		if os.Args[i] == "importDomain" {
+			if err := importDomain(os.Args[i+1:]); err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			return
+		}
+
+		if os.Args[i] == "importCommon" {
+			if err := importCommon(os.Args[i+1:]); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
@@ -145,6 +161,12 @@ func createNewProject() error {
 	}
 
 	if err = execGoModVendor(projectName); err != nil {
+		_ = removeProject(projectName)
+
+		return err
+	}
+
+	if err = copyFile(projectName+pathSeparator+".env.example", projectName+pathSeparator+".env", currentGoModule, goModule); err != nil {
 		_ = removeProject(projectName)
 
 		return err
@@ -255,7 +277,7 @@ func importFeature(args []string) error {
 			}
 
 			for _, commonFilepath := range feat.featureDependency.Commons {
-				if err = copyFile(feat.projectPath+pathSeparator+"commons"+pathSeparator+commonFilepath, "commons"+pathSeparator+commonFilepath, feat.goModule, currentGoModule); err != nil {
+				if err = copyFile(feat.projectPath+pathSeparator+"common"+pathSeparator+commonFilepath, "common"+pathSeparator+commonFilepath, feat.goModule, currentGoModule); err != nil {
 					continue
 				}
 			}
@@ -273,6 +295,194 @@ func importFeature(args []string) error {
 	}
 
 	fmt.Println(fmt.Sprintf("%v feature(s) imported", totalImported))
+
+	return nil
+}
+
+func importDomain(args []string) error {
+	if len(args) != 3 || args[1] != "from" {
+		return errors.New("invalid `importDomain` arguments, please follow: importDomain [domain1.go,domain2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
+	}
+	if len(args[0]) < 1 || args[0] == " " {
+		return errors.New("domain name cannot be empty or blank space")
+	}
+	if len(args[2]) < 1 || args[2] == " " {
+		return errors.New("argument `from` cannot be empty or blank space")
+	}
+
+	fromPath := args[2]
+
+	if isFromGit(fromPath) {
+		tmpProjectPath, err := getProjectPathFromGit(fromPath)
+
+		defer removeDir(tmpProjectPath)
+
+		if err != nil {
+			return err
+		}
+
+		fromPath = tmpProjectPath
+	}
+
+	fmt.Println("Checking domains... [RUNNING]")
+
+	domains := strings.Split(strings.ReplaceAll(args[0], " ", ""), ",")
+
+	fmt.Println("Checking domains... [OK]")
+
+	if len(domains) > 0 {
+		fmt.Println("")
+
+		reader := bufio.NewReader(os.Stdin)
+
+		fmt.Println("Domains to be imported from `" + fromPath + "`: ")
+
+		for _, domain := range domains {
+			fmt.Println("Name: " + domain)
+		}
+
+		fmt.Println("")
+
+		confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted... ", false)
+		if err != nil {
+			return err
+		}
+
+		if confirmation != "y" {
+			return errors.New("process aborted")
+		}
+
+		fmt.Println("")
+	} else {
+		return errors.New("no domain found to be imported")
+	}
+
+	fmt.Println("Adding domains... [RUNNING]")
+
+	currentGoModule, err := getGoModuleFromProject("")
+	if err != nil {
+		return errors.New("no go module found from the current project")
+	}
+	fromGoModule, err := getGoModuleFromProject(fromPath)
+	if err != nil {
+		return errors.New("no go module found from `" + fromPath + "`")
+	}
+
+	var totalImported int
+
+	for _, domain := range domains {
+		if err = copyFile(fromPath+pathSeparator+"domain"+pathSeparator+domain, "domain"+pathSeparator+domain, fromGoModule, currentGoModule); err != nil {
+			continue
+		}
+
+		totalImported += 1
+	}
+
+	fmt.Println("Adding domains... [OK]")
+
+	if err = execGoModTidy(""); err != nil {
+		return err
+	}
+
+	if err = execGoModVendor(""); err != nil {
+		return err
+	}
+
+	fmt.Println(fmt.Sprintf("%v domains(s) imported", totalImported))
+
+	return nil
+}
+
+func importCommon(args []string) error {
+	if len(args) != 3 || args[1] != "from" {
+		return errors.New("invalid `importCommon` arguments, please follow: importCommon [commonFunction1.go,commonFunction2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]")
+	}
+	if len(args[0]) < 1 || args[0] == " " {
+		return errors.New("common function name cannot be empty or blank space")
+	}
+	if len(args[2]) < 1 || args[2] == " " {
+		return errors.New("argument `from` cannot be empty or blank space")
+	}
+
+	fromPath := args[2]
+
+	if isFromGit(fromPath) {
+		tmpProjectPath, err := getProjectPathFromGit(fromPath)
+
+		defer removeDir(tmpProjectPath)
+
+		if err != nil {
+			return err
+		}
+
+		fromPath = tmpProjectPath
+	}
+
+	fmt.Println("Checking common functions... [RUNNING]")
+
+	commons := strings.Split(strings.ReplaceAll(args[0], " ", ""), ",")
+
+	fmt.Println("Checking common functions... [OK]")
+
+	if len(commons) > 0 {
+		fmt.Println("")
+
+		reader := bufio.NewReader(os.Stdin)
+
+		fmt.Println("Common functions to be imported from `" + fromPath + "`: ")
+
+		for _, common := range commons {
+			fmt.Println("Name: " + common)
+		}
+
+		fmt.Println("")
+
+		confirmation, err := readInput(reader, "Type `y` and press Enter to confirm. Otherwise, the process will be aborted... ", false)
+		if err != nil {
+			return err
+		}
+
+		if confirmation != "y" {
+			return errors.New("process aborted")
+		}
+
+		fmt.Println("")
+	} else {
+		return errors.New("no common function found to be imported")
+	}
+
+	fmt.Println("Adding common functions... [RUNNING]")
+
+	currentGoModule, err := getGoModuleFromProject("")
+	if err != nil {
+		return errors.New("no go module found from the current project")
+	}
+	fromGoModule, err := getGoModuleFromProject(fromPath)
+	if err != nil {
+		return errors.New("no go module found from `" + fromPath + "`")
+	}
+
+	var totalImported int
+
+	for _, common := range commons {
+		if err = copyFile(fromPath+pathSeparator+"common"+pathSeparator+common, "common"+pathSeparator+common, fromGoModule, currentGoModule); err != nil {
+			continue
+		}
+
+		totalImported += 1
+	}
+
+	fmt.Println("Adding common functions... [OK]")
+
+	if err = execGoModTidy(""); err != nil {
+		return err
+	}
+
+	if err = execGoModVendor(""); err != nil {
+		return err
+	}
+
+	fmt.Println(fmt.Sprintf("%v common function(s) imported", totalImported))
 
 	return nil
 }
@@ -319,12 +529,7 @@ func getRuntimeDirContents() ([]string, error) {
 	if err = filepath.Walk(runtimeDir, func(path string, info os.FileInfo, err error) error {
 		pathCut := path[lenRuntimeDir:]
 
-		if pathCut == pathSeparator+"LICENSE" || pathCut == pathSeparator+"README.md" || pathCut == pathSeparator+".gitignore" || pathCut == pathSeparator+"_baseStructure" {
-			list = append(list, path)
-
-			return nil
-		}
-		if len(pathCut) >= 16 && pathCut[:16] == pathSeparator+"_baseStructure"+pathSeparator {
+		if len(pathCut) >= 15 && pathCut[:15] == pathSeparator+"_baseStructure" {
 			list = append(list, path)
 
 			return nil

@@ -5,7 +5,7 @@
 accessible through the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
 - The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` command. It serves to define
 the **Feature** dependencies and avoids possible missing package errors
-- A standard **Feature** comprises the following parts: `delivery`, `repositories`, `usecases` and `utilities`
+- A standard **Feature** comprises the following parts: `delivery`, `repositories`, `usecases` and `utility`
   - **delivery**
     - Hosts feature handlers like HTTP handlers, gRPC handlers, cron jobs, or anything serving between the client and your application or feature
     - For config variables, external clients, or use cases, pass or inject them as dependencies
@@ -19,6 +19,6 @@ the **Feature** dependencies and avoids possible missing package errors
     - Contains the main feature logic
     - Changes outside the `usecases` should not impact them (except changes for business domain/model/entity and repositories)
     - For config variables, external clients, or repositories, pass or inject them as dependencies
-  - **utilities**
+  - **utility**
     - Accommodates functions tailored to help with common tasks specifically for the **Feature**—treat them as helpers
 - Feel free to adopt your own style as long as it aligns with the core concept

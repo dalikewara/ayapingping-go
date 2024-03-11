@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
 	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/middlewares/checkMethod"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utilities/presenterJSON"
+	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utility"
 	"net/http"
 )
 
@@ -21,14 +21,14 @@ func NewV1NetHttp(serverMux *http.ServeMux, getExample domain.GetExampleUseCase)
 }
 
 func (v *v1NetHttp) RegisterHandler(method string, endpoint string) {
-	v.serverMux.Handle(endpoint, checkMethod.NetHttp(method, http.HandlerFunc(v.getQueryParam)))
+	v.serverMux.Handle(endpoint, checkMethod.NetHttp(method, http.HandlerFunc(v.handler)))
 }
 
-func (v *v1NetHttp) getQueryParam(w http.ResponseWriter, r *http.Request) {
+func (v *v1NetHttp) handler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	dto, _ := v.getExample.ExecCtx(ctx, 1)
-	httpStatus, result := presenterJSON.OK("00", "", dto)
+	httpStatus, result := utility.PresenterJSONOK("00", "", dto)
 	resultBytes, _ := json.Marshal(result)
 
 	w.WriteHeader(httpStatus)

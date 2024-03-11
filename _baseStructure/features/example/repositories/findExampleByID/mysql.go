@@ -18,9 +18,9 @@ func NewMySQL(db *sql.DB) domain.FindExampleByIDRepository {
 
 func (m *mysql) ExecCtx(ctx context.Context, id uint64) (*domain.Example, error) {
 	example := &domain.Example{
-		ID:       1,
+		ID:       id,
 		Username: "dalikewara",
-		Password: "dalikewara123",
+		Password: "password",
 	}
 
 	example.SetCreatedAtNow()
