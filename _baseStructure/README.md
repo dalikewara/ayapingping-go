@@ -140,7 +140,8 @@ Example `dependency.json` file:
   ],
   "features": [],
   "commons": [
-    "validateUsername.go"
+    "validateUsername.go",
+    "timeNow.go"
   ]
 }
 ```
