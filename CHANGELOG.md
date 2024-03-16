@@ -2,6 +2,13 @@
 
 ## 2024
 
+- **v4.4.0** (2024-03-16)
+  - Rename `_baseStructure` to `_base_structure`
+  - Now using [ayapingping-sh](https://github.com/dalikewara/ayapingping-sh) main shell script
+  - Add command `exportFeature`, `exportDomain` and `exportCommon`
+  - Add support for param `externals` in the `features/yourFeature/dependency.json` file
+  - Change some `_base_structure` scripts
+
 - **v4.2.0 - v4.3.9** (2024-03-11)
   - Add command `importDomain` and `importCommon`
   - Update & fix some scripts

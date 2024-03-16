@@ -6,5 +6,6 @@
   "commons": [
     "validateUsername.go",
     "timeNow.go"
-  ]
+  ],
+  "externals": []
 }

@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/common"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/handlers/exampleGet"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/repositories/findExampleByID"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/usecases/getExample"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/common"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/delivery/handlers/exampleGet"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/repositories/findExampleByID"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/usecases/getExample"
 )
 
 func main() {
