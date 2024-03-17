@@ -10,7 +10,7 @@ Architecture and Feature-Driven Design concept.
 
 > Python variant: [ayapingping-py](https://github.com/dalikewara/ayapingping-py)
 
-> TypeScript variant: [ayapingping-ts](https://github.com/dalikewara/ayapingping-py)
+> TypeScript variant: [ayapingping-ts](https://github.com/dalikewara/ayapingping-ts)
 
 ## Requirements
 
@@ -42,7 +42,7 @@ To generate a new project, simply run the `ayapingping-go` command:
 ayapingping-go
 ```
 
-Then enter your project name and your Go module path. After you confirm your inputs, the **ayapingping-go** generator will set up the project for you.
+Then enter your project name and your Go module path, the **ayapingping-go** generator will set up the project for you.
 
 ![Alt Text](https://lh3.googleusercontent.com/drive-viewer/AKGpihZVKfRP1YbgPEilKjEypqE84gyuFpsONb8qqVY2qrnZsAkBo68gqR1UioKlq0G2gW_kCZqFVIPYA7kbRJBrRqb-vl3OnA=w840-h939)
 
