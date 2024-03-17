@@ -12,11 +12,13 @@ Architecture and Feature-Driven Design concept.
 
 > TypeScript variant: [ayapingping-ts](https://github.com/dalikewara/ayapingping-py)
 
-## Getting started
-
-### Requirements
+## Requirements
 
 - Golang>=1.19
+- Operating systems supporting `/bin/sh` with **POSIX** standards ([WHY?](https://github.com/dalikewara/ayapingping-sh)).
+  **Linux** and **macOS** should have no issues here as they support it by default. For **Windows** users, consider using WSL instead
+
+## Getting started
 
 ### Installation
 
@@ -158,51 +160,27 @@ Example `dependency.json` file:
 }
 ```
 
-## Importing Domains from Another Project
+## Other Commands
 
-To import domains from another project, use the `importDomain` command:
-
-```bash
-ayapingping-go importDomain [domain1.go,domain2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]
-```
-
-For example:
+There are several commands similar to `importFeature` above, such as `importDomain`, `importCommon`, `exportFeature`, `exportDomain`, etc.
+They function in the same way, for example:
 
 ```bash
 ayapingping-go importDomain example.go from /path/to/your/project
 ```
 
 ```bash
-ayapingping-go importDomain example.go,example2.go from git@github.com:username/project.git
+ayapingping-go importCommon commonFunction1.go from https://example.com/user/project.git
 ```
 
-## Importing Common Functions from Another Project
-
-To import common functions from another project, use the `importCommon` command:
-
-```bash
-ayapingping-go importCommon [commonFunction1.go,commonFunction2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]
-```
-
-For example:
-
-```bash
-ayapingping-go importCommon exampleFunction.go from /path/to/your/project
-```
-
-```bash
-ayapingping-go importCommon exampleFunction1.go,exampleFunction2.go from git@github.com:username/project.git
-```
-
-## Exporting Features, Domains, or Common Functions
-
-The behavior is similar to the `import` command, but now uses `export` as the prefix and `to` instead of `from` when pointing to the source.
-
-For example:
+For `export` command, the behavior is similar to the `import` command, but now uses `export` as the prefix and `to` instead of
+`from` when pointing to the source, for example:
 
 ```bash
 ayapingping-go exportFeature exampleFeature to /path/to/your/project
 ```
+
+For more detail and explanation, please visit [ayapingping-sh](https://github.com/dalikewara/ayapingping-sh)
 
 ## Release
 
