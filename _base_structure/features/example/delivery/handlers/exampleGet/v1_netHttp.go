@@ -2,9 +2,9 @@ package exampleGet
 
 import (
 	"encoding/json"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/delivery/middlewares/checkMethod"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/features/example/utility"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/domain"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/delivery/middlewares/checkMethod"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/utility"
 	"net/http"
 )
 
@@ -28,7 +28,7 @@ func (v *v1NetHttp) handler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	dto, _ := v.getExample.ExecCtx(ctx, 1)
-	httpStatus, result := utility.PresenterJSONOK("00", "", dto)
+	httpStatus, result := utility.JSONPresenterOK("00", "", dto)
 	resultBytes, _ := json.Marshal(result)
 
 	w.WriteHeader(httpStatus)

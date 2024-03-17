@@ -2,7 +2,7 @@ package domain
 
 import (
 	"context"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/common"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/common"
 	"time"
 )
 
@@ -33,13 +33,21 @@ func (e *Example) ValidateUsername() error {
 	return common.ValidateUsername(e.Username)
 }
 
+func (e *Example) ToDTO1() *ExampleDTO1 {
+	return &ExampleDTO1{
+		ID:        e.ID,
+		Username:  e.Username,
+		CreatedAt: e.CreatedAt,
+	}
+}
+
 type ExampleDTO1 struct {
 	ID        uint64    `json:"id"`
 	Username  string    `json:"username"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
-type ExamplePresenterJSON struct {
+type ExampleJSONPresenter struct {
 	Code    string      `json:"code"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`

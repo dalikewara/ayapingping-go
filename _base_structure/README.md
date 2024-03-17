@@ -8,13 +8,17 @@
 **ayapingping-go** generates standard project structure to build applications in Golang that follow Clean
 Architecture and Feature-Driven Design concept.
 
-> Python Version: [ayapingping-py](https://github.com/dalikewara/ayapingping-py)
+> Python variant: [ayapingping-py](https://github.com/dalikewara/ayapingping-py)
 
-## Getting started
+> TypeScript variant: [ayapingping-ts](https://github.com/dalikewara/ayapingping-py)
 
-### Requirements
+## Requirements
 
 - Golang>=1.19
+- Operating systems supporting `/bin/sh` with **POSIX** standards ([WHY?](https://github.com/dalikewara/ayapingping-sh)).
+  **Linux** and **macOS** should have no issues here as they support it by default. For **Windows** users, consider using WSL instead
+
+## Getting started
 
 ### Installation
 
@@ -60,7 +64,7 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~ Feat
 - The **Domain** represents your primary business model or entity
 - Define your main object models or properties for your business here, including database models, DTOs (Data Transfer Objects), etc
 - Keep this package as straightforward as possible. Avoid including any code that is not directly related to the model itself
-- If a **Feature** imports anything from this location, and you want the **Feature** to be accessible through the `importFeature` command
+- If a **Feature** imports anything from this location, and you want the **Feature** to be accessible through the `importFeature` or `exportFeature` command
   without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.json` file
 
 ### features
@@ -69,7 +73,7 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~ Feat
 - Here, you include everything necessary to ensure the proper functioning of the feature
 - Please prioritize **Feature-Driven Design**, ensuring that features can be easily adapted and seamlessly integrated and imported into different projects
 - If another **Feature** imports anything from this location (the current **Feature**), and you want the current **Feature** to be
-  accessible through the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
+  accessible through the `importFeature` or `exportFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
 - The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` command. It serves to define
   the **Feature** dependencies and avoids possible missing package errors
 - A standard **Feature** comprises the following parts: `delivery`, `repositories`, `usecases` and `utility`
@@ -95,7 +99,8 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~ Feat
 - In this place, you can implement various functions to assist you in performing common tasks—consider them as helpers
 - Common functions can be directly called from any location
 - If a **Domain** or **Feature** imports anything from this location, and you want the **Feature** to be accessible through
-  the `importFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `features/yourFeature/dependency.json` file
+  the `importFeature` or `exportFeature` command without the risk of missing package errors, **DON'T FORGET** to include
+  them in the `features/yourFeature/dependency.json` file
 
 ### infra
 
@@ -130,57 +135,52 @@ If your feature relies on external packages, it's crucial to address dependencie
 Failure to import necessary dependencies may result in missing packages. To prevent this, please document your feature
 dependencies in the `dependency.json` file. Supported dependencies are limited to the following directories: `domain`, `common`, and `features`.
 Ensure that your feature dependencies strictly adhere to these directories, avoiding reliance on other locations.
+You can also include any external packages to `externals` param to install them automatically using the `go get` method.
 
 Example `dependency.json` file:
 
 ```json
 {
   "domains": [
-    "example.go"
+    "domain1.go",
+    "domain2.go"
   ],
-  "features": [],
+  "features": [
+    "feature1",
+    "feature2"
+  ],
   "commons": [
-    "validateUsername.go",
-    "timeNow.go"
+    "commonFunction1.go",
+    "commonFunction2.go"
+  ],
+  "externals": [
+    "github.com/go-sql-driver/mysql",
+    "github.com/jmoiron/sqlx"
   ]
 }
 ```
 
-## Importing Domains from Another Project
+## Other Commands
 
-To import domains from another project, use the `importDomain` command:
-
-```bash
-ayapingping-go importDomain [domain1.go,domain2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]
-```
-
-For example:
+There are several commands similar to `importFeature` above, such as `importDomain`, `importCommon`, `exportFeature`, `exportDomain`, etc.
+They function in the same way, for example:
 
 ```bash
 ayapingping-go importDomain example.go from /path/to/your/project
 ```
 
 ```bash
-ayapingping-go importDomain example.go,example2.go from git@github.com:username/project.git
+ayapingping-go importCommon commonFunction1.go from https://example.com/user/project.git
 ```
 
-## Importing Common Functions from Another Project
-
-To import common functions from another project, use the `importCommon` command:
+For `export` command, the behavior is similar to the `import` command, but now uses `export` as the prefix and `to` instead of
+`from` when pointing to the source, for example:
 
 ```bash
-ayapingping-go importCommon [commonFunction1.go,commonFunction2.go,...] from [/local/project or https://example.com/user/project.git or git@example.com:user/project.git]
+ayapingping-go exportFeature exampleFeature to /path/to/your/project
 ```
 
-For example:
-
-```bash
-ayapingping-go importCommon exampleFunction.go from /path/to/your/project
-```
-
-```bash
-ayapingping-go importCommon exampleFunction1.go,exampleFunction2.go from git@github.com:username/project.git
-```
+For more detail and explanation, please visit [ayapingping-sh](https://github.com/dalikewara/ayapingping-sh)
 
 ## Release
 

@@ -2,15 +2,15 @@ package findExampleByID
 
 import (
 	"context"
-	"database/sql"
-	"github.com/dalikewara/ayapingping-go/v4/_baseStructure/domain"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/domain"
+	"github.com/jmoiron/sqlx"
 )
 
 type mysql struct {
-	db *sql.DB
+	db *sqlx.DB
 }
 
-func NewMySQL(db *sql.DB) domain.FindExampleByIDRepository {
+func NewMySQL(db *sqlx.DB) domain.FindExampleByIDRepository {
 	return &mysql{
 		db: db,
 	}
