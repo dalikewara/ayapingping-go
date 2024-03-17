@@ -7,7 +7,7 @@ value=$4
 source_prefix=$5
 source=$6
 
-sh_version="4.4.3"
+sh_version="4.4.4"
 old_ifs=$IFS
 base_structure_dir="_base_structure"
 runtime_dir="$(dirname "$(readlink -f "$0")")"
@@ -69,18 +69,13 @@ main() {
     exit 0
   fi
 
-  _9_latest_content=""
-  _9_latest_content=$(wget -q --no-cache -O- "$latest_raw_url")
+  wget -q --no-cache -O "$latest_output_filepath" "$latest_raw_url" || true
 
-  if [ "${_9_latest_content%"${_9_latest_content#?????????}"}" != "#!/bin/sh" ]; then
-    _9_latest_content=$(curl -s -o- "$latest_raw_url")
+  if [ "$(head -c 9 "$latest_output_filepath")" != "#!/bin/sh" ]; then
+    curl -s -o "$latest_output_filepath" "$latest_raw_url" || true
   fi
 
-  if [ "${_9_latest_content%"${_9_latest_content#?????????}"}" = "#!/bin/sh" ]; then
-    echo "$_9_latest_content" > "$latest_output_filepath"
-  fi
-
-  if is_file "$latest_output_filepath"; then
+  if is_file "$latest_output_filepath" && [ "$(head -c 9 "$latest_output_filepath")" = "#!/bin/sh" ]; then
     chmod +x $latest_output_filepath
 
     $latest_output_filepath "$version" "$language" "$command" "$value" "$source_prefix" "$source"
