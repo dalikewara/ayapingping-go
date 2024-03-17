@@ -5,6 +5,8 @@ package main
 
 import (
 	"errors"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -12,8 +14,12 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.4.6"
+const version = "v4.5.0"
 const language = "Golang"
+const generatorUrl = "https://raw.githubusercontent.com/dalikewara/ayapingping-sh/master/main_v4.sh"
+const generatorFile = "main.sh"
+const generatorFileTmp = "main_tmp.sh"
+const baseStructureDir = "_base_structure"
 const pathSeparator = string(os.PathSeparator)
 
 func main() {
@@ -39,16 +45,12 @@ func main() {
 		panic(err)
 	}
 
-	_ = os.Chmod(runtimeDir+pathSeparator+"main_v4.sh", 0777)
-	_ = os.Chmod(runtimeDir+pathSeparator+"main_v4_latest.sh", 0777)
-	_ = filepath.Walk(runtimeDir+pathSeparator+"_base_structure", func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		return os.Chmod(path, 0777)
-	})
+	if err = checkGenerator(runtimeDir); err != nil {
+		panic(err)
+	}
 
-	cmd := exec.Command(runtimeDir+pathSeparator+"main_v4.sh", version, language, command, value, sourcePrefix, source)
+	cmd := exec.Command(runtimeDir+pathSeparator+generatorFile, version, language, command, value, sourcePrefix, source)
+
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
@@ -63,4 +65,84 @@ func getRuntimeDir() (string, error) {
 	}
 
 	return filepath.Dir(runtimeFilepath), nil
+}
+
+func syncGenerator(runtimeDir string) {
+	response, err := http.Get(generatorUrl)
+	if err != nil {
+		return
+	}
+	defer response.Body.Close()
+
+	file, err := os.Create(runtimeDir + pathSeparator + generatorFileTmp)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	if _, err = io.Copy(file, response.Body); err != nil {
+		return
+	}
+
+	if !isFileValidSH(runtimeDir + pathSeparator + generatorFileTmp) {
+		return
+	}
+
+	fileData, err := os.ReadFile(runtimeDir + pathSeparator + generatorFileTmp)
+	if err != nil {
+		return
+	}
+
+	if err = os.WriteFile(runtimeDir+pathSeparator+generatorFile, fileData, 0777); err != nil {
+		return
+	}
+
+	return
+}
+
+func checkGenerator(runtimeDir string) error {
+	chmod(runtimeDir)
+	syncGenerator(runtimeDir)
+
+	if !isFile(runtimeDir + pathSeparator + generatorFile) {
+		return errors.New("no generator found, please connect to the internet and run the command again to synchronize")
+	}
+
+	if !isFileValidSH(runtimeDir + pathSeparator + generatorFile) {
+		return errors.New("invalid generator file, please connect to the internet and run the command again to synchronize")
+	}
+
+	return nil
+}
+
+func chmod(runtimeDir string) {
+	_ = os.Chmod(runtimeDir+pathSeparator+generatorFile, 0777)
+	_ = os.Chmod(runtimeDir+pathSeparator+generatorFileTmp, 0777)
+	_ = filepath.Walk(runtimeDir+pathSeparator+baseStructureDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		return os.Chmod(path, 0777)
+	})
+}
+
+func isFile(path string) bool {
+	if fileInfo, err := os.Stat(path); err == nil && !fileInfo.IsDir() {
+		return true
+	}
+
+	return false
+}
+
+func isFileValidSH(path string) bool {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return false
+	}
+
+	if len(content) >= 9 && string(content[:9]) == "#!/bin/sh" {
+		return true
+	}
+
+	return false
 }

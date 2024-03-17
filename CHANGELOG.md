@@ -2,6 +2,9 @@
 
 ## 2024
 
+- **v4.5.0** (2024-03-17)
+  - Fix `v4.4.6` including permission issue and adjust generator synchronizer
+
 - **v4.4.0 - v4.4.6** (2024-03-17)
   - Fix `main_v4.sh` permission
   - Fix create `main_v4_latest.sh` permission
