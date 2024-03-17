@@ -12,7 +12,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.4.1"
+const version = "v4.4.2"
 const language = "Golang"
 const pathSeparator = string(os.PathSeparator)
 
@@ -39,11 +39,10 @@ func main() {
 		panic(err)
 	}
 
-	cmd := exec.Command("chmod", "+x", runtimeDir+pathSeparator+"main_v4.sh")
+	_ = os.Chmod(runtimeDir+pathSeparator+"main_v4.sh", 0777)
+	_ = os.Chmod(runtimeDir+pathSeparator+"main_v4_latest.sh", 0777)
 
-	_ = cmd.Run()
-
-	cmd = exec.Command(runtimeDir+pathSeparator+"main_v4.sh", version, language, command, value, sourcePrefix, source)
+	cmd := exec.Command(runtimeDir+pathSeparator+"main_v4.sh", version, language, command, value, sourcePrefix, source)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
