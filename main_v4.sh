@@ -7,7 +7,7 @@ value=$4
 source_prefix=$5
 source=$6
 
-sh_version="4.4.0"
+sh_version="4.4.3"
 old_ifs=$IFS
 base_structure_dir="_base_structure"
 runtime_dir="$(dirname "$(readlink -f "$0")")"
@@ -58,7 +58,7 @@ trap_is_ok=false
 trap_project_name=""
 trap_path=""
 
-# last function variable prefix: _8
+# last function variable prefix: _9
 
 main() {
   if is_latest; then
@@ -69,7 +69,16 @@ main() {
     exit 0
   fi
 
-  wget -qO "$latest_output_filepath" "$latest_raw_url" || curl -sSL "$latest_raw_url" > "$latest_output_filepath" || true
+  _9_latest_content=""
+  _9_latest_content=$(wget -q --no-cache -O- "$latest_raw_url")
+
+  if [ "${_9_latest_content%"${_9_latest_content#?????????}"}" != "#!/bin/sh" ]; then
+    _9_latest_content=$(curl -s -o- "$latest_raw_url")
+  fi
+
+  if [ "${_9_latest_content%"${_9_latest_content#?????????}"}" = "#!/bin/sh" ]; then
+    echo "$_9_latest_content" > "$latest_output_filepath"
+  fi
 
   if is_file "$latest_output_filepath"; then
     chmod +x $latest_output_filepath
