@@ -12,7 +12,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.4.3"
+const version = "v4.4.5"
 const language = "Golang"
 const pathSeparator = string(os.PathSeparator)
 
