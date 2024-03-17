@@ -14,7 +14,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.5.0"
+const version = "v4.5.1"
 const language = "Golang"
 const generatorUrl = "https://raw.githubusercontent.com/dalikewara/ayapingping-sh/master/main_v4.sh"
 const generatorFile = "main.sh"
@@ -93,7 +93,7 @@ func syncGenerator(runtimeDir string) {
 		return
 	}
 
-	if err = os.WriteFile(runtimeDir+pathSeparator+generatorFile, fileData, 0777); err != nil {
+	if err = os.WriteFile(runtimeDir+pathSeparator+generatorFile, fileData, 0775); err != nil {
 		return
 	}
 
@@ -116,18 +116,31 @@ func checkGenerator(runtimeDir string) error {
 }
 
 func chmod(runtimeDir string) {
-	_ = os.Chmod(runtimeDir+pathSeparator+generatorFile, 0777)
-	_ = os.Chmod(runtimeDir+pathSeparator+generatorFileTmp, 0777)
+	_ = os.Chmod(runtimeDir+pathSeparator+generatorFile, 0775)
+	_ = os.Chmod(runtimeDir+pathSeparator+generatorFileTmp, 0775)
 	_ = filepath.Walk(runtimeDir+pathSeparator+baseStructureDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
-		return os.Chmod(path, 0777)
+
+		if isDir(path) {
+			return os.Chmod(path, 0775)
+		}
+
+		return os.Chmod(path, 0664)
 	})
 }
 
 func isFile(path string) bool {
 	if fileInfo, err := os.Stat(path); err == nil && !fileInfo.IsDir() {
+		return true
+	}
+
+	return false
+}
+
+func isDir(path string) bool {
+	if fileInfo, err := os.Stat(path); err == nil && fileInfo.IsDir() {
 		return true
 	}
 
