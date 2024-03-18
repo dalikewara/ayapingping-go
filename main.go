@@ -1,6 +1,3 @@
-// This file is not part of the project structure. It is just a generator for `ayapingping-go` (this Go module) and will
-// not be generated when creating a new project.
-
 package main
 
 import (
@@ -14,7 +11,7 @@ import (
 )
 
 const name = "AyaPingPing (Go)"
-const version = "v4.5.1"
+const version = "v4.5.2"
 const language = "Golang"
 const generatorUrl = "https://raw.githubusercontent.com/dalikewara/ayapingping-sh/master/main_v4.sh"
 const generatorFile = "main.sh"

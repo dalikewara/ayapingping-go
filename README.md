@@ -1,9 +1,14 @@
 # ayapingping-go
 
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v4)
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go)
-![GitHub license](https://img.shields.io/github/license/dalikewara/ayapingping-go)
+[![reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v4)
+![version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go.svg?style=flat)
+
+![build](https://img.shields.io/circleci/project/github/dalikewara/ayapingping-go.svg?style=flat)
+![language](https://img.shields.io/github/languages/top/dalikewara/ayapingping-go.svg?style=flat)
+![issue](https://img.shields.io/github/issues/dalikewara/ayapingping-go.svg?style=flat)
+![last_commit](https://img.shields.io/github/last-commit/dalikewara/ayapingping-go.svg?style=flat)
+![github_tag](https://img.shields.io/github/v/tag/dalikewara/ayapingping-go.svg?style=flat)
+![github_license](https://img.shields.io/github/license/dalikewara/ayapingping-go.svg?style=flat)
 
 **ayapingping-go** generates standard project structure to build applications in Golang that follow Clean
 Architecture and Feature-Driven Design concept.
@@ -16,7 +21,7 @@ Architecture and Feature-Driven Design concept.
 
 - Golang>=1.19
 - Operating systems supporting `/bin/sh` with **POSIX** standards ([WHY?](https://github.com/dalikewara/ayapingping-sh)).
-**Linux** and **macOS** should have no issues here as they support it by default. For **Windows** users, consider using WSL instead
+  **Linux** and **macOS** should have no issues here as they support it by default. For **Windows** users, consider using WSL instead
 
 ## Getting started
 
@@ -56,8 +61,8 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~ Feat
 
 ### main.go
 
-- In this file, you initialize dependencies, injections, and anything required to start and run your application.
-- You can use the command `go run main.go` or `make start` to run your application.
+- In this file, you initialize dependencies, injections, and anything required to start and run your application
+- You can use the command `go run main.go` or `make start` to run your application
 
 ### domain
 
@@ -74,7 +79,7 @@ To implement the concept of Clean Architecture and ~~Domain-Driven Design~~ Feat
 - Please prioritize **Feature-Driven Design**, ensuring that features can be easily adapted and seamlessly integrated and imported into different projects
 - If another **Feature** imports anything from this location (the current **Feature**), and you want the current **Feature** to be
   accessible through the `importFeature` or `exportFeature` command without the risk of missing package errors, **DON'T FORGET** to include them in the `dependency.json` file
-- The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` command. It serves to define
+- The `dependency.json` is **OPTIONAL**, and **ONLY USEFUL WHEN** you use the `importFeature` or `exportFeature` command. It serves to define
   the **Feature** dependencies and avoids possible missing package errors
 - A standard **Feature** comprises the following parts: `delivery`, `repositories`, `usecases` and `utility`
   - **delivery**
