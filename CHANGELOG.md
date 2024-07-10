@@ -2,6 +2,10 @@
 
 ## 2024
 
+- **v4.6.0** (2024-07-10)
+  - Minimize example project structure
+  - Change default infra scripts
+
 - **v4.5.1 - v4.5.2** (2024-03-18)
   - Restrict permission
   - Update some scripts

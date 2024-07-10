@@ -3,26 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/dalikewara/ayapingping-go/v4/_base_structure/common"
-	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/delivery/handlers/exampleGet"
-	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/repositories/findExampleByID"
-	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example/usecases/getExample"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/features/example"
+	"net/http"
 )
 
 func main() {
-	// Parse env
-
-	envCfg, err := common.ParseEnv()
-	if err != nil {
-		//panic(err)
-	}
-
-	// Database connection
-
-	mysqlDB, err := common.ConnectMySQL(envCfg.MySQLHost, envCfg.MySQLPort, envCfg.MySQLUser, envCfg.MySQLPass, envCfg.MySQLDBName)
-	if err != nil {
-		//panic(err)
-	}
-
 	// Http server initialization
 
 	httpServer := common.NewNetHttpServer()
@@ -30,24 +15,28 @@ func main() {
 
 	// Repositories
 
-	findExampleByIDRepositoryMySQL := findExampleByID.NewMySQL(mysqlDB)
+	exampleRepositoryMySQL := example.NewRepositoryMySQL(nil)
 
 	// Use cases
 
-	getExampleUseCaseV1 := getExample.NewV1(findExampleByIDRepositoryMySQL)
+	exampleUseCaseV1 := example.NewUseCaseV1(exampleRepositoryMySQL)
 
-	// Register handlers
+	// Services
 
-	exampleGet.NewV1NetHttp(httpServerMux, getExampleUseCaseV1).RegisterHandler("GET", "/api/v1/example/get")
+	exampleHttpServiceNetHttp := example.NewHttpServiceNetHttp(httpServerMux, exampleUseCaseV1)
+
+	// Service handlers
+
+	exampleHttpServiceNetHttp.ExampleDetail(http.MethodGet, "/example")
 
 	// Start & listen application
 
 	httpServer.Handler = httpServerMux
-	httpServer.Addr = ":" + envCfg.RESTPort
+	httpServer.Addr = ":8080"
 
-	fmt.Println("App running on port: ", envCfg.RESTPort)
+	fmt.Println("App running on port: 8080")
 
-	if err = httpServer.ListenAndServe(); err != nil {
+	if err := httpServer.ListenAndServe(); err != nil {
 		panic(err)
 	}
 }
