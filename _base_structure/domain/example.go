@@ -6,16 +6,16 @@ import (
 	"time"
 )
 
-type FindExampleByIDRepository interface {
-	ExecCtx(ctx context.Context, id uint64) (*Example, error)
+type ExampleRepository interface {
+	FindByIDCtx(ctx context.Context, id uint64) (*Example, error)
 }
 
-type GetExampleUseCase interface {
-	ExecCtx(ctx context.Context, id uint64) (*ExampleDTO1, error)
+type ExampleUseCase interface {
+	GetDetailCtx(ctx context.Context, id uint64) (*ExampleDTO1, error)
 }
 
-type ExampleDelivery interface {
-	RegisterHandler(method string, endpoint string)
+type ExampleHttpService interface {
+	ExampleDetail(method string, endpoint string)
 }
 
 type Example struct {
@@ -33,23 +33,16 @@ func (e *Example) ValidateUsername() error {
 	return common.ValidateUsername(e.Username)
 }
 
-func (e *Example) ToDTO1() *ExampleDTO1 {
-	return &ExampleDTO1{
-		ID:        e.ID,
-		Username:  e.Username,
-		CreatedAt: e.CreatedAt,
-	}
-}
-
 type ExampleDTO1 struct {
 	ID        uint64    `json:"id"`
 	Username  string    `json:"username"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
-type ExampleJSONPresenter struct {
-	Code    string      `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
-	Errors  []string    `json:"errors,omitempty"`
+func NewExampleDTO1(example *Example) *ExampleDTO1 {
+	return &ExampleDTO1{
+		ID:        example.ID,
+		Username:  example.Username,
+		CreatedAt: example.CreatedAt,
+	}
 }
