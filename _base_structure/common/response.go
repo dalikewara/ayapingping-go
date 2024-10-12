@@ -3,8 +3,8 @@ package common
 type ResponseJSON struct {
 	Status  bool        `json:"status"`
 	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
-	Errors  []string    `json:"errors,omitempty"`
+	Data    interface{} `json:"data"`
+	Errors  []string    `json:"errors"`
 }
 
 func NewResponseJSONSuccess(data interface{}) *ResponseJSON {
