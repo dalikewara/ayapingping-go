@@ -1,4 +1,4 @@
-package domain
+package common
 
 type ResponseJSON struct {
 	Status  bool        `json:"status"`
@@ -10,7 +10,7 @@ type ResponseJSON struct {
 func NewResponseJSONSuccess(data interface{}) *ResponseJSON {
 	return &ResponseJSON{
 		Status:  true,
-		Message: "success",
+		Message: "ok",
 		Data:    data,
 	}
 }

@@ -27,7 +27,7 @@ func main() {
 
 	// Service handlers
 
-	exampleHttpServiceNetHttp.ExampleDetail(http.MethodGet, "/example")
+	exampleHttpServiceNetHttp.Detail(http.MethodGet, "/example")
 
 	// Start & listen application
 

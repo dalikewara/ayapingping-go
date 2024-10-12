@@ -15,7 +15,7 @@ type ExampleUseCase interface {
 }
 
 type ExampleHttpService interface {
-	ExampleDetail(method string, endpoint string)
+	Detail(method string, endpoint string)
 }
 
 type Example struct {
