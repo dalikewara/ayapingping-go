@@ -2,6 +2,7 @@ package example
 
 import (
 	"encoding/json"
+	"github.com/dalikewara/ayapingping-go/v4/_base_structure/common"
 	"github.com/dalikewara/ayapingping-go/v4/_base_structure/domain"
 	"net/http"
 	"strings"
@@ -19,12 +20,12 @@ func NewHttpServiceNetHttp(client *http.ServeMux, exampleUseCase domain.ExampleU
 	}
 }
 
-func (h *httpServiceNetHttp) ExampleDetail(method string, endpoint string) {
+func (h *httpServiceNetHttp) Detail(method string, endpoint string) {
 	h.client.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		if r.Method != strings.ToUpper(method) {
-			resultBytes, _ := json.Marshal(domain.NewResponseJSONError(ErrInvalidRequestMethod))
+			resultBytes, _ := json.Marshal(common.NewResponseJSONError(common.ErrInvalidRequestMethod))
 
 			w.WriteHeader(400)
 
@@ -35,7 +36,7 @@ func (h *httpServiceNetHttp) ExampleDetail(method string, endpoint string) {
 
 		result, err := h.exampleUseCase.GetDetailCtx(ctx, 1)
 		if err != nil {
-			resultBytes, _ := json.Marshal(domain.NewResponseJSONError(err))
+			resultBytes, _ := json.Marshal(common.NewResponseJSONError(err))
 
 			w.WriteHeader(500)
 
@@ -44,7 +45,7 @@ func (h *httpServiceNetHttp) ExampleDetail(method string, endpoint string) {
 			return
 		}
 
-		resultBytes, _ := json.Marshal(domain.NewResponseJSONSuccess(result))
+		resultBytes, _ := json.Marshal(common.NewResponseJSONSuccess(result))
 
 		w.WriteHeader(200)
 

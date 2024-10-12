@@ -1,13 +1,14 @@
 {
   "domains": [
-    "example.go",
-    "response.go"
+    "example.go"
   ],
   "features": [],
   "commons": [
     "validateUsername.go",
     "timeNow.go",
-    "netHttp.go"
+    "netHttp.go",
+    "response.go",
+    "error.go"
   ],
   "externals": []
 }
