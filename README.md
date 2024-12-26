@@ -1,5 +1,7 @@
 # ayapingping-go
 
+> **ayapingping-go** has been rebranded to **[uwais](https://github.com/dalikewara/uwais)**. This repository will stay up forever and won’t be deleted, so you can still use it if needed. However, there won’t be any more updates here since all future updates will be worked on in the new **[uwais](https://github.com/dalikewara/uwais)** repository.
+
 [![reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/dalikewara/ayapingping-go/v4)
 ![version](https://img.shields.io/github/go-mod/go-version/dalikewara/ayapingping-go.svg?style=flat)
 
